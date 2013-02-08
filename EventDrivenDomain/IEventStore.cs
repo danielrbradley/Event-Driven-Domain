@@ -2,6 +2,6 @@
 {
     public interface IEventStore<TBaseAction>
     {
-        Event<TBaseAction> Write(TBaseAction action);
+        Event<TBaseAction> Write(Message<TBaseAction> message);
     }
 }

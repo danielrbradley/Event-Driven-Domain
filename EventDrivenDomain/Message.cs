@@ -13,9 +13,20 @@
 
         private readonly MessageStateMachine messageState = new MessageStateMachine();
 
+        private readonly Guid id;
+
         public Message(T action)
         {
+            this.id = Guid.NewGuid();
             this.action = action;
+        }
+
+        public Guid Id
+        {
+            get
+            {
+                return id;
+            }
         }
 
         public T Action

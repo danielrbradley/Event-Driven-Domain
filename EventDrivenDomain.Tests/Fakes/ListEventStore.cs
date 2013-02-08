@@ -5,9 +5,9 @@
 
     public class ListEventStore<T> : IEventStore<T>
     {
-        private readonly LinkedList<T> events = new LinkedList<T>();
+        private readonly LinkedList<Event<T>> events = new LinkedList<Event<T>>();
 
-        public IEnumerable<T> Events
+        public IEnumerable<Event<T>> Events
         {
             get
             {
@@ -15,10 +15,11 @@
             }
         }
 
-        public Event<T> Write(T action)
+        public Event<T> Write(Message<T> message)
         {
-            this.events.AddLast(action);
-            return new Event<T>(DateTime.UtcNow, action);
+            var newEvent = new Event<T>(message, DateTime.UtcNow);
+            this.events.AddLast(newEvent);
+            return newEvent;
         }
     }
 }

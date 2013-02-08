@@ -39,7 +39,7 @@
             while (!disposeTokenSource.IsCancellationRequested)
             {
                 var message = queue.WaitDequeue();
-                Event<TBaseAction> actionEvent;
+                Event<TBaseAction> newEvent;
 
                 if (message == null)
                 {
@@ -50,7 +50,7 @@
                 {
                     message.Start();
                     var newState = this.State.Apply(message.Action);
-                    actionEvent = this.eventStore.Write(message.Action);
+                    newEvent = this.eventStore.Write(message);
                     Interlocked.Exchange(ref this.state, newState);
                 }
                 catch (Exception ex)
@@ -60,15 +60,21 @@
                 }
 
                 message.Complete();
-                observableSubject.OnNext(actionEvent);
+                observableSubject.OnNext(newEvent);
             }
 
             disposeCompleted.Set();
         }
 
-        protected virtual void Update(TBaseAction action)
+        protected virtual Guid Update(TBaseAction action)
         {
             var message = new Message<TBaseAction>(action);
+            this.ProcessMessage(message);
+            return message.Id;
+        }
+
+        private void ProcessMessage(Message<TBaseAction> message)
+        {
             this.queue.Enqueue(message);
             message.WaitCompletion();
         }

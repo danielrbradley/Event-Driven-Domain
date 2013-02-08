@@ -8,10 +8,21 @@
 
         private readonly T action;
 
-        public Event(DateTime timestamp, T action)
+        private readonly Guid id;
+
+        public Event(Message<T> message, DateTime timestamp)
         {
+            this.id = message.Id;
             this.timestamp = timestamp;
-            this.action = action;
+            this.action = message.Action;
+        }
+
+        public Guid Id
+        {
+            get
+            {
+                return id;
+            }
         }
 
         public DateTime Timestamp
