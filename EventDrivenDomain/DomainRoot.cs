@@ -48,6 +48,7 @@
 
                 try
                 {
+                    message.Start();
                     var newState = this.State.Apply(message.Action);
                     actionEvent = this.eventStore.Write(message.Action);
                     Interlocked.Exchange(ref this.state, newState);

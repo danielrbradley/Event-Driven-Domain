@@ -57,6 +57,8 @@
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MessageState.cs" />
+    <Compile Include="MessageStateMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
