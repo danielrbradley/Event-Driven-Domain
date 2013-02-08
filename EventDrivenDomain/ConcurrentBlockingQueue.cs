@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
 
     public class ConcurrentBlockingQueue<T> : IEnumerable<T>, ICollection
@@ -17,7 +18,7 @@
         public ConcurrentBlockingQueue(CancellationToken cancellationToken)
         {
             this.cancellationToken = cancellationToken;
-            cancellationToken.Register(() => reset.Set());
+            cancellationToken.Register(() => this.reset.Set());
         }
 
         public bool TryDequeue(out T result)

@@ -1,6 +1,7 @@
 ﻿namespace EventDrivenDomain
 {
     using System;
+    using System.Linq;
     using System.Reactive.Subjects;
     using System.Threading;
     using System.Threading.Tasks;
@@ -88,6 +89,11 @@
         public void Dispose()
         {
             disposeTokenSource.Cancel();
+            foreach (var message in queue)
+            {
+                message.Dispose();
+            }
+
             disposeCompleted.WaitOne();
             disposeTokenSource.Dispose();
         }
