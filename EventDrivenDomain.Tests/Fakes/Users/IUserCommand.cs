@@ -1,6 +1,6 @@
 namespace EventDrivenDomain.Tests.Fakes.Users
 {
-    public interface IUserAction
+    public interface IUserCommand
     {
     }
 }

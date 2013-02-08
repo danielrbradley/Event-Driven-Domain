@@ -1,15 +1,15 @@
 ﻿namespace EventDrivenDomain.Tests.Fakes.Users
 {
-    public class User : EventStoreBackedAggregateRoot<IUserAction, UserAggregate>
+    public class User : EventStoreBackedAggregateRoot<IUserCommand, UserAggregate>
     {
-        public User(IEventStore<IUserAction> eventStore, UserAggregate initialState)
+        public User(IEventStore<IUserCommand> eventStore, UserAggregate initialState)
             : base(eventStore, initialState)
         {
         }
 
         public void ChangeName(string updatedName)
         {
-            this.Update(new UpdateName(updatedName));
+            this.Execute(new UpdateName(updatedName));
         }
     }
 }

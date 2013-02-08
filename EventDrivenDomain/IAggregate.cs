@@ -1,7 +1,7 @@
 ﻿namespace EventDrivenDomain
 {
-    public interface IAggregate<out TAggregate, in TBaseAction>
+    public interface IAggregate<out TAggregate, in TBaseCommand>
     {
-        TAggregate Apply(TBaseAction action);
+        TAggregate Apply(TBaseCommand action);
     }
 }

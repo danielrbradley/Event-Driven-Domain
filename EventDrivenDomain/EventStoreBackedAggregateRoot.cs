@@ -5,14 +5,14 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public abstract class EventStoreBackedAggregateRoot<TBaseAction, TAggregate> : IObservable<Event<TBaseAction>>, IDisposable
-        where TAggregate : class, IAggregate<TAggregate, TBaseAction>
+    public abstract class EventStoreBackedAggregateRoot<TBaseCommand, TAggregate> : IObservable<Event<TBaseCommand>>, IDisposable
+        where TAggregate : class, IAggregate<TAggregate, TBaseCommand>
     {
-        private readonly IEventStore<TBaseAction> eventStore;
+        private readonly IEventStore<TBaseCommand> eventStore;
 
-        private readonly ConcurrentBlockingQueue<Message<TBaseAction>> queue;
+        private readonly ConcurrentBlockingQueue<Message<TBaseCommand>> queue;
 
-        private readonly Subject<Event<TBaseAction>> observableSubject = new Subject<Event<TBaseAction>>();
+        private readonly Subject<Event<TBaseCommand>> observableSubject = new Subject<Event<TBaseCommand>>();
 
         private TAggregate state;
 
@@ -20,12 +20,12 @@
 
         private readonly ManualResetEvent disposeCompleted = new ManualResetEvent(true);
 
-        protected EventStoreBackedAggregateRoot(IEventStore<TBaseAction> eventStore, TAggregate initialState)
+        protected EventStoreBackedAggregateRoot(IEventStore<TBaseCommand> eventStore, TAggregate initialState)
         {
             this.eventStore = eventStore;
             this.state = initialState;
 
-            this.queue = new ConcurrentBlockingQueue<Message<TBaseAction>>(disposeTokenSource.Token);
+            this.queue = new ConcurrentBlockingQueue<Message<TBaseCommand>>(disposeTokenSource.Token);
 
             var task = new Task(this.QueueProcessor, TaskCreationOptions.LongRunning);
             task.Start();
@@ -38,7 +38,7 @@
             while (!disposeTokenSource.IsCancellationRequested)
             {
                 var message = queue.WaitDequeue();
-                Event<TBaseAction> newEvent;
+                Event<TBaseCommand> newEvent;
 
                 if (message == null)
                 {
@@ -48,7 +48,7 @@
                 try
                 {
                     message.Start();
-                    var newState = this.State.Apply(message.Action);
+                    var newState = this.State.Apply(message.Command);
                     newEvent = this.eventStore.Write(message);
                     Interlocked.Exchange(ref this.state, newState);
                 }
@@ -65,14 +65,14 @@
             disposeCompleted.Set();
         }
 
-        protected virtual Guid Update(TBaseAction action)
+        protected virtual Guid Execute(TBaseCommand command)
         {
-            var message = new Message<TBaseAction>(action);
+            var message = new Message<TBaseCommand>(command);
             this.ProcessMessage(message);
             return message.Id;
         }
 
-        private void ProcessMessage(Message<TBaseAction> message)
+        private void ProcessMessage(Message<TBaseCommand> message)
         {
             this.queue.Enqueue(message);
             message.WaitCompletion();
@@ -86,7 +86,7 @@
             }
         }
 
-        public IDisposable Subscribe(IObserver<Event<TBaseAction>> observer)
+        public IDisposable Subscribe(IObserver<Event<TBaseCommand>> observer)
         {
             return this.observableSubject.Subscribe(observer);
         }

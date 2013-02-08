@@ -2,13 +2,13 @@ namespace EventDrivenDomain.Tests.Fakes.Users
 {
     using System;
 
-    public class UserAggregate : IAggregate<UserAggregate, IUserAction>
+    public class UserAggregate : IAggregate<UserAggregate, IUserCommand>
     {
-        public UserAggregate Apply(IUserAction action)
+        public UserAggregate Apply(IUserCommand command)
         {
-            if (action.GetType() == typeof(UpdateName))
+            if (command.GetType() == typeof(UpdateName))
             {
-                var actionAsUpdateName = (UpdateName)action;
+                var actionAsUpdateName = (UpdateName)command;
                 var clone = (UserAggregate)this.MemberwiseClone();
                 clone.Name = actionAsUpdateName.UpdatedName;
                 return clone;

@@ -45,7 +45,7 @@
     <Compile Include="Fakes\ListEventStore.cs" />
     <Compile Include="Fakes\Users\UpdateName.cs" />
     <Compile Include="Fakes\Users\User.cs" />
-    <Compile Include="Fakes\Users\IUserAction.cs" />
+    <Compile Include="Fakes\Users\IUserCommand.cs" />
     <Compile Include="Fakes\Users\UserAggregate.cs" />
     <Compile Include="MessageStateTransitionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

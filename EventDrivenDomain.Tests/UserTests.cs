@@ -12,7 +12,7 @@
         [Test]
         public void Given_a_user_When_updating_the_name_Then_update_name_event_is_witten_to_the_store()
         {
-            var eventStore = new ListEventStore<IUserAction>();
+            var eventStore = new ListEventStore<IUserCommand>();
             var userAggregate = new UserAggregate();
             using (var user = new User(eventStore, userAggregate))
             {

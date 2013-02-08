@@ -2,19 +2,19 @@
 {
     using System;
 
-    public sealed class Event<T>
+    public sealed class Event<TBaseCommand>
     {
         private readonly DateTime timestamp;
 
-        private readonly T action;
+        private readonly TBaseCommand commandExecuted;
 
         private readonly Guid id;
 
-        public Event(Message<T> message, DateTime timestamp)
+        public Event(Message<TBaseCommand> commandExecuted, DateTime timestamp)
         {
-            this.id = message.Id;
+            this.id = commandExecuted.Id;
             this.timestamp = timestamp;
-            this.action = message.Action;
+            this.commandExecuted = commandExecuted.Command;
         }
 
         public Guid Id
@@ -33,11 +33,11 @@
             }
         }
 
-        public T Action
+        public TBaseCommand CommandExecuted
         {
             get
             {
-                return action;
+                return commandExecuted;
             }
         }
     }

@@ -3,9 +3,9 @@
     using System;
     using System.Threading;
 
-    public sealed class Message<T> : IDisposable
+    public sealed class Message<TBaseCommand> : IDisposable
     {
-        private readonly T action;
+        private readonly TBaseCommand command;
 
         private readonly ManualResetEvent resetEvent = new ManualResetEvent(false);
 
@@ -15,10 +15,10 @@
 
         private readonly Guid id;
 
-        public Message(T action)
+        public Message(TBaseCommand command)
         {
             this.id = Guid.NewGuid();
-            this.action = action;
+            this.command = command;
         }
 
         public Guid Id
@@ -29,11 +29,11 @@
             }
         }
 
-        public T Action
+        public TBaseCommand Command
         {
             get
             {
-                return action;
+                return command;
             }
         }
 

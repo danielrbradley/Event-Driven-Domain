@@ -1,7 +1,7 @@
 ﻿namespace EventDrivenDomain
 {
-    public interface IEventStore<TBaseAction>
+    public interface IEventStore<TBaseCommand>
     {
-        Event<TBaseAction> Write(Message<TBaseAction> message);
+        Event<TBaseCommand> Write(Message<TBaseCommand> message);
     }
 }

@@ -1,6 +1,6 @@
 namespace EventDrivenDomain.Tests.Fakes.Users
 {
-    public class UpdateName : IUserAction
+    public class UpdateName : IUserCommand
     {
         public string UpdatedName { get; private set; }
 

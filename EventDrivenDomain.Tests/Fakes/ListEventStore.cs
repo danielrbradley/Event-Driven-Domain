@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
 
-    public class ListEventStore<T> : IEventStore<T>
+    public class ListEventStore<TBaseCommand> : IEventStore<TBaseCommand>
     {
-        private readonly LinkedList<Event<T>> events = new LinkedList<Event<T>>();
+        private readonly LinkedList<Event<TBaseCommand>> events = new LinkedList<Event<TBaseCommand>>();
 
-        public IEnumerable<Event<T>> Events
+        public IEnumerable<Event<TBaseCommand>> Events
         {
             get
             {
@@ -15,9 +15,9 @@
             }
         }
 
-        public Event<T> Write(Message<T> message)
+        public Event<TBaseCommand> Write(Message<TBaseCommand> message)
         {
-            var newEvent = new Event<T>(message, DateTime.UtcNow);
+            var newEvent = new Event<TBaseCommand>(message, DateTime.UtcNow);
             this.events.AddLast(newEvent);
             return newEvent;
         }
