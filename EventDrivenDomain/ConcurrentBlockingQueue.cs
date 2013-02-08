@@ -8,9 +8,17 @@
 
     public class ConcurrentBlockingQueue<T> : IEnumerable<T>, ICollection
     {
+        private readonly CancellationToken cancellationToken;
+
         private readonly ConcurrentQueue<T> queue = new ConcurrentQueue<T>();
 
         private readonly ManualResetEvent reset = new ManualResetEvent(false);
+
+        public ConcurrentBlockingQueue(CancellationToken cancellationToken)
+        {
+            this.cancellationToken = cancellationToken;
+            cancellationToken.Register(() => reset.Set());
+        }
 
         public bool TryDequeue(out T result)
         {
@@ -25,6 +33,11 @@
 
             while (!success)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return result;
+                }
+
                 success = queue.TryDequeue(out result);
 
                 if (success)

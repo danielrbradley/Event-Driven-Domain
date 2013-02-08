@@ -14,11 +14,12 @@
         {
             var eventStore = new ListEventStore<IUserAction>();
             var userAggregate = new UserAggregate();
-            var user = new User(eventStore, userAggregate);
+            using (var user = new User(eventStore, userAggregate))
+            {
+                user.ChangeName("The Name");
 
-            user.ChangeName("The Name");
-
-            Assert.IsTrue(eventStore.Events.Any());
+                Assert.IsTrue(eventStore.Events.Any());
+            }
         }
     }
 }
