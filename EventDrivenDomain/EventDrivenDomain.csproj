@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
-    <Compile Include="DomainRoot.cs" />
+    <Compile Include="EventStoreBackedAggregateRoot.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventStore.cs" />

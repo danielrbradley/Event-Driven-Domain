@@ -1,6 +1,6 @@
 ﻿namespace EventDrivenDomain.Tests.Fakes.Users
 {
-    public class User : DomainRoot<IUserAction, UserAggregate>
+    public class User : EventStoreBackedAggregateRoot<IUserAction, UserAggregate>
     {
         public User(IEventStore<IUserAction> eventStore, UserAggregate initialState)
             : base(eventStore, initialState)

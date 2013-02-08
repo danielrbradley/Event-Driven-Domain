@@ -1,12 +1,11 @@
 ﻿namespace EventDrivenDomain
 {
     using System;
-    using System.Linq;
     using System.Reactive.Subjects;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public abstract class DomainRoot<TBaseAction, TAggregate> : IObservable<Event<TBaseAction>>, IDisposable
+    public abstract class EventStoreBackedAggregateRoot<TBaseAction, TAggregate> : IObservable<Event<TBaseAction>>, IDisposable
         where TAggregate : class, IAggregate<TAggregate, TBaseAction>
     {
         private readonly IEventStore<TBaseAction> eventStore;
@@ -21,7 +20,7 @@
 
         private readonly ManualResetEvent disposeCompleted = new ManualResetEvent(true);
 
-        protected DomainRoot(IEventStore<TBaseAction> eventStore, TAggregate initialState)
+        protected EventStoreBackedAggregateRoot(IEventStore<TBaseAction> eventStore, TAggregate initialState)
         {
             this.eventStore = eventStore;
             this.state = initialState;
