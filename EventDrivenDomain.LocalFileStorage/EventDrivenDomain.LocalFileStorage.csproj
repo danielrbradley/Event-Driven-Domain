@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="EventReader.cs" />
     <Compile Include="EventWriter.cs" />
+    <Compile Include="FileNamer.cs" />
     <Compile Include="IEventFileReader.cs" />
     <Compile Include="IEventFileWriter.cs" />
     <Compile Include="IFileNamer.cs" />

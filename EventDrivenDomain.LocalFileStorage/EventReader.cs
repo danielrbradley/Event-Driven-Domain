@@ -7,11 +7,14 @@
     {
         private readonly string folderPath;
 
+        private readonly string fileExtension;
+
         private readonly IEventFileReader<TBaseCommand> eventFileReader;
 
-        public EventReader(string folderPath, IEventFileReader<TBaseCommand> eventFileReader)
+        public EventReader(string folderPath, string fileExtension, IEventFileReader<TBaseCommand> eventFileReader)
         {
             this.folderPath = folderPath;
+            this.fileExtension = fileExtension;
             this.eventFileReader = eventFileReader;
         }
 
@@ -19,8 +22,9 @@
         {
             get
             {
+                var searchPattern = this.GetSearchPattern();
                 return
-                    Directory.EnumerateFiles(this.folderPath, "*.event", SearchOption.TopDirectoryOnly)
+                    Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .OrderBy(file => file)
                              .Select(file => this.eventFileReader.Read(file))
                              .AsEventEnumerable();
@@ -31,8 +35,9 @@
         {
             get
             {
+                var searchPattern = this.GetSearchPattern();
                 var lastFile =
-                    Directory.EnumerateFiles(this.folderPath, "*.event", SearchOption.TopDirectoryOnly)
+                    Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .OrderBy(file => file)
                              .LastOrDefault();
                 if (lastFile == null)
@@ -42,6 +47,12 @@
 
                 return this.eventFileReader.Read(lastFile);
             }
+        }
+
+        private string GetSearchPattern()
+        {
+            var searchPattern = string.Concat("*.", this.fileExtension);
+            return searchPattern;
         }
     }
 }
