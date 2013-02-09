@@ -2,7 +2,7 @@
 {
     public class User : EventStoreBackedAggregateRoot<IUserCommand, UserAggregate>
     {
-        public User(IEventWriter<IUserCommand> eventStore, UserAggregate initialState)
+        public User(IWritableEventStore<IUserCommand> eventStore, UserAggregate initialState)
             : base(eventStore, initialState)
         {
         }

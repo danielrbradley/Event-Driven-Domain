@@ -1,7 +1,6 @@
 ﻿namespace EventDrivenDomain
 {
-    public interface IEventStore<TBaseCommand> : IEventWriter<TBaseCommand>
+    public interface IEventStore<TBaseCommand> : IWritableEventStore<TBaseCommand>, IReadableEventStore<TBaseCommand>
     {
-        IEventEnumerable<TBaseCommand> Events { get; }
     }
 }

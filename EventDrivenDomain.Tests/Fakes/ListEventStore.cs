@@ -3,15 +3,15 @@
     using System;
     using System.Collections.Generic;
 
-    public class ListEventStore<TBaseCommand> : IEventWriter<TBaseCommand>
+    public class ListEventStore<TBaseCommand> : IEventStore<TBaseCommand>
     {
         private readonly LinkedList<Event<TBaseCommand>> events = new LinkedList<Event<TBaseCommand>>();
 
-        public IEnumerable<Event<TBaseCommand>> Events
+        public IEventEnumerable<TBaseCommand> Events
         {
             get
             {
-                return this.events;
+                return this.events.AsEventEnumerable();
             }
         }
 

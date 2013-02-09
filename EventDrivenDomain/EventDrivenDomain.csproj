@@ -52,12 +52,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
+    <Compile Include="EventEnumerableExtensions.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventEnumerable.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventWriter.cs" />
+    <Compile Include="IReadableEventStore.cs" />
+    <Compile Include="IWritableEventStore.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageState.cs" />
     <Compile Include="MessageStateMachine.cs" />
