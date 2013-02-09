@@ -1,12 +1,12 @@
 ﻿namespace EventDrivenDomain.LocalFileStorage
 {
-    public class EventWriter<TBaseCommand> : IEventWriter<TBaseCommand>
+    public class FileEventWriter<TBaseCommand> : IEventWriter<TBaseCommand>
     {
         private readonly IFilePathProvider filePathProvider;
 
         private readonly IEventFileWriter<TBaseCommand> eventFileWriter;
 
-        public EventWriter(IFilePathProvider filePathProvider, IEventFileWriter<TBaseCommand> eventFileWriter)
+        public FileEventWriter(IFilePathProvider filePathProvider, IEventFileWriter<TBaseCommand> eventFileWriter)
         {
             this.filePathProvider = filePathProvider;
             this.eventFileWriter = eventFileWriter;
