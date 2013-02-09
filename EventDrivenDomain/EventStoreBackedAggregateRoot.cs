@@ -8,7 +8,7 @@
     public abstract class EventStoreBackedAggregateRoot<TBaseCommand, TAggregate> : IObservable<Event<TBaseCommand>>, IDisposable
         where TAggregate : class, IAggregate<TAggregate, TBaseCommand>
     {
-        private readonly IEventStore<TBaseCommand> eventStore;
+        private readonly IEventWriter<TBaseCommand> eventStore;
 
         private readonly ConcurrentBlockingQueue<Message<TBaseCommand>> queue;
 
@@ -20,7 +20,7 @@
 
         private readonly ManualResetEvent disposeCompleted = new ManualResetEvent(true);
 
-        protected EventStoreBackedAggregateRoot(IEventStore<TBaseCommand> eventStore, TAggregate initialState)
+        protected EventStoreBackedAggregateRoot(IEventWriter<TBaseCommand> eventStore, TAggregate initialState)
         {
             this.eventStore = eventStore;
             this.state = initialState;

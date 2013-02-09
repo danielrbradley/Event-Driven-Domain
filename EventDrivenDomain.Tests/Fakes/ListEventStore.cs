@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class ListEventStore<TBaseCommand> : IEventStore<TBaseCommand>
+    public class ListEventStore<TBaseCommand> : IEventWriter<TBaseCommand>
     {
         private readonly LinkedList<Event<TBaseCommand>> events = new LinkedList<Event<TBaseCommand>>();
 
