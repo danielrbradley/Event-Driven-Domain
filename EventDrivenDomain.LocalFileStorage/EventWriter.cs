@@ -2,19 +2,19 @@
 {
     public class EventWriter<TBaseCommand> : IEventWriter<TBaseCommand>
     {
-        private readonly IFileNamer fileNamer;
+        private readonly IFilePathProvider filePathProvider;
 
         private readonly IEventFileWriter<TBaseCommand> eventFileWriter;
 
-        public EventWriter(IFileNamer fileNamer, IEventFileWriter<TBaseCommand> eventFileWriter)
+        public EventWriter(IFilePathProvider filePathProvider, IEventFileWriter<TBaseCommand> eventFileWriter)
         {
-            this.fileNamer = fileNamer;
+            this.filePathProvider = filePathProvider;
             this.eventFileWriter = eventFileWriter;
         }
 
         public void Write(Event<TBaseCommand> eventToWrite)
         {
-            var filePath = this.fileNamer.GetFilePath(eventToWrite);
+            var filePath = this.filePathProvider.GetFilePath(eventToWrite);
             this.eventFileWriter.Write(filePath, eventToWrite);
         }
     }

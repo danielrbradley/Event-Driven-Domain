@@ -1,6 +1,6 @@
 ﻿namespace EventDrivenDomain.LocalFileStorage
 {
-    public interface IFileNamer
+    public interface IFilePathProvider
     {
         string GetFilePath<T>(Event<T> eventToWrite);
     }

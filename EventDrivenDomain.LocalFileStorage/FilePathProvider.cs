@@ -2,7 +2,7 @@
 {
     using System.IO;
 
-    public class FileNamer : IFileNamer
+    public class FilePathProvider : IFilePathProvider
     {
         private readonly string folderPath;
 
@@ -10,7 +10,7 @@
 
         private readonly string fileExtension;
 
-        public FileNamer(string folderPath, string timestampFormatString, string fileExtension)
+        public FilePathProvider(string folderPath, string timestampFormatString, string fileExtension)
         {
             this.folderPath = folderPath;
             this.timestampFormatString = timestampFormatString;
