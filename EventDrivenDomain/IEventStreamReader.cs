@@ -4,6 +4,6 @@
 
     public interface IEventStreamReader<TBaseCommand>
     {
-        Event<TBaseCommand> Read(Stream stream);
+        Event<TBaseCommand> Read(EventReadState state, Stream stream, out string hash);
     }
 }

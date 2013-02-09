@@ -3,7 +3,7 @@
     using System.IO;
     using System.Linq;
 
-    public class FileEventReader<TBaseCommand> : IEventReader<TBaseCommand>, ILatestEventReader<TBaseCommand>
+    public class FileEventReader<TBaseCommand> : IEventReader<TBaseCommand>
     {
         private readonly string folderPath;
 
@@ -22,37 +22,20 @@
         {
             get
             {
-                var searchPattern = this.GetSearchPattern();
+                var searchPattern = string.Concat("*.", this.fileExtension);
+                var state = new EventReadState();
                 return
                     Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .OrderBy(file => file)
-                             .Select(file => this.eventFileReader.Read(Path.Combine(folderPath, file)))
+                             .Select(file =>
+                                 {
+                                     string hash;
+                                     var result = this.eventFileReader.Read(state, Path.Combine(folderPath, file), out hash);
+                                     state.PreviousHash = hash;
+                                     return result;
+                                 })
                              .AsEventEnumerable();
             }
-        }
-
-        public Event<TBaseCommand> LatestEvent
-        {
-            get
-            {
-                var searchPattern = this.GetSearchPattern();
-                var lastFile =
-                    Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
-                             .OrderBy(file => file)
-                             .LastOrDefault();
-                if (lastFile == null)
-                {
-                    return null;
-                }
-
-                return this.eventFileReader.Read(Path.Combine(folderPath, lastFile));
-            }
-        }
-
-        private string GetSearchPattern()
-        {
-            var searchPattern = string.Concat("*.", this.fileExtension);
-            return searchPattern;
         }
     }
 }

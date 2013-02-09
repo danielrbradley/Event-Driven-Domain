@@ -14,13 +14,13 @@
             this.bufferSize = bufferSize;
         }
 
-        public Event<TBaseCommand> Read(string filePath)
+        public Event<TBaseCommand> Read(EventReadState state, string filePath, out string hash)
         {
             using (
                 var filestream = new FileStream(
                     filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
             {
-                return eventStreamReader.Read(filestream);
+                return eventStreamReader.Read(state, filestream, out hash);
             }
         }
     }
