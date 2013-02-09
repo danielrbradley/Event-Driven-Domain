@@ -52,8 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
-    <Compile Include="IEventStreamValidationWriteWrapper.cs" />
-    <Compile Include="IEventStreamValidationWriteWrapperProvider.cs" />
+    <Compile Include="IEventStreamValidatingWriter.cs" />
     <Compile Include="EventEnumerableExtensions.cs" />
     <Compile Include="EventReadState.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />

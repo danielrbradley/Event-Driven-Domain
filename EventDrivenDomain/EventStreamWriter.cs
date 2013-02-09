@@ -8,13 +8,13 @@
 
         private readonly IEventEncoder<TBaseCommand> eventEncoder;
 
-        private readonly IEventStreamValidationWriteWrapperProvider eventStreamValidationWriteWrapperProvider;
+        private readonly IEventStreamValidatingWriter eventStreamValidatingWriter;
 
-        public EventStreamWriter(IPreviousEventHashReader previousEventHashReader, IEventEncoder<TBaseCommand> eventEncoder, IEventStreamValidationWriteWrapperProvider eventStreamValidationWriteWrapperProvider)
+        public EventStreamWriter(IPreviousEventHashReader previousEventHashReader, IEventEncoder<TBaseCommand> eventEncoder, IEventStreamValidatingWriter eventStreamValidatingWriter)
         {
             this.previousEventHashReader = previousEventHashReader;
             this.eventEncoder = eventEncoder;
-            this.eventStreamValidationWriteWrapperProvider = eventStreamValidationWriteWrapperProvider;
+            this.eventStreamValidatingWriter = eventStreamValidatingWriter;
         }
 
         public void Write(Stream stream, Event<TBaseCommand> eventToWrite)
@@ -26,9 +26,7 @@
 
                 string previousHash = this.previousEventHashReader.ReadPreviousHash();
 
-                var eventStreamValidationWriteWrapper =
-                    this.eventStreamValidationWriteWrapperProvider.GetValidationWriteWrapper();
-                eventStreamValidationWriteWrapper.Write(stream, previousHash, innerStream);
+                eventStreamValidatingWriter.Write(stream, previousHash, innerStream);
             }
         }
     }

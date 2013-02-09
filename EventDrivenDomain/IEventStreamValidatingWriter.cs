@@ -2,7 +2,7 @@
 {
     using System.IO;
 
-    public interface IEventStreamValidationWriteWrapper
+    public interface IEventStreamValidatingWriter
     {
         void Write(Stream stream, string previousHash, Stream innerStream);
     }
