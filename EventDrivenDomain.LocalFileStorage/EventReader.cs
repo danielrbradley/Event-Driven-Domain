@@ -26,7 +26,7 @@
                 return
                     Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .OrderBy(file => file)
-                             .Select(file => this.eventFileReader.Read(file))
+                             .Select(file => this.eventFileReader.Read(Path.Combine(folderPath, file)))
                              .AsEventEnumerable();
             }
         }
@@ -45,7 +45,7 @@
                     return null;
                 }
 
-                return this.eventFileReader.Read(lastFile);
+                return this.eventFileReader.Read(Path.Combine(folderPath, lastFile));
             }
         }
 

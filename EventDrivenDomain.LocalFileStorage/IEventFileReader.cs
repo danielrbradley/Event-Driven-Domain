@@ -2,6 +2,6 @@
 {
     public interface IEventFileReader<TBaseCommand>
     {
-        Event<TBaseCommand> Read(string file);
+        Event<TBaseCommand> Read(string filePath);
     }
 }
