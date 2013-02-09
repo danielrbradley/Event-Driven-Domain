@@ -2,6 +2,6 @@
 {
     public interface ILatestEventReader<TBaseCommand>
     {
-        Event<TBaseCommand> PreviousEvent { get; }
+        Event<TBaseCommand> LatestEvent { get; }
     }
 }
