@@ -2,6 +2,6 @@
 {
     public interface IFileNamer
     {
-        string GetFilename<T>(Event<T> eventToWrite);
+        string GetFilePath<T>(Event<T> eventToWrite);
     }
 }

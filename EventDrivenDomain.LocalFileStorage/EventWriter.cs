@@ -14,8 +14,8 @@
 
         public void Write(Event<TBaseCommand> eventToWrite)
         {
-            var filename = this.fileNamer.GetFilename(eventToWrite);
-            this.eventFileWriter.Write(filename, eventToWrite);
+            var filePath = this.fileNamer.GetFilePath(eventToWrite);
+            this.eventFileWriter.Write(filePath, eventToWrite);
         }
     }
 }

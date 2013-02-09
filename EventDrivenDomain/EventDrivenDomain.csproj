@@ -61,6 +61,7 @@
     <Compile Include="IEventReader.cs" />
     <Compile Include="IEventReaderWriter.cs" />
     <Compile Include="IEventStore.cs" />
+    <Compile Include="IEventStoreWriteLock.cs" />
     <Compile Include="IEventWriter.cs" />
     <Compile Include="ILatestEventReader.cs" />
     <Compile Include="IReadableEventStore.cs" />

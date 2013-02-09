@@ -17,7 +17,7 @@
             this.fileExtension = fileExtension;
         }
 
-        public string GetFilename<T>(Event<T> eventToWrite)
+        public string GetFilePath<T>(Event<T> eventToWrite)
         {
             var timestamp = eventToWrite.Timestamp.ToString(timestampFormatString);
             var filename = string.Concat(timestamp, ".", fileExtension);

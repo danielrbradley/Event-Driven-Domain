@@ -2,6 +2,6 @@
 {
     public interface IEventFileWriter<TBaseCommand>
     {
-        void Write(string filename, Event<TBaseCommand> eventToWrite);
+        void Write(string filePath, Event<TBaseCommand> eventToWrite);
     }
 }

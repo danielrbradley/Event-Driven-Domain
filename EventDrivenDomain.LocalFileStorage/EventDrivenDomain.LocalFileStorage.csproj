@@ -40,12 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventFileReader.cs" />
+    <Compile Include="EventFileWriter.cs" />
     <Compile Include="EventReader.cs" />
     <Compile Include="EventWriter.cs" />
     <Compile Include="FileNamer.cs" />
     <Compile Include="IEventFileReader.cs" />
     <Compile Include="IEventFileWriter.cs" />
     <Compile Include="IEventStreamReader.cs" />
+    <Compile Include="IEventStreamWriter.cs" />
     <Compile Include="IFileNamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

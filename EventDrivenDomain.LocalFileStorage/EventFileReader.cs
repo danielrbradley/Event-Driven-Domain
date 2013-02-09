@@ -17,7 +17,8 @@
         public Event<TBaseCommand> Read(string filePath)
         {
             using (
-                var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
+                var filestream = new FileStream(
+                    filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
             {
                 return eventStreamReader.Read(filestream);
             }
