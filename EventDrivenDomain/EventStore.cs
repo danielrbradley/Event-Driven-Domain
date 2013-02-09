@@ -33,7 +33,7 @@
         {
             get
             {
-                return eventReader.GetEvents();
+                return eventReader.Events;
             }
         }
     }

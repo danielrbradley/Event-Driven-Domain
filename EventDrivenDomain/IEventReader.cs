@@ -2,6 +2,6 @@
 {
     public interface IEventReader<TBaseCommand>
     {
-        IEventEnumerable<TBaseCommand> GetEvents();
+        IEventEnumerable<TBaseCommand> Events { get; }
     }
 }
