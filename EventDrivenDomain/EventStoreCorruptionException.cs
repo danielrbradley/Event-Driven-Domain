@@ -4,23 +4,23 @@
     using System.Runtime.Serialization;
 
     [Serializable]
-    public class InvalidEventStreamException : Exception
+    public class EventStoreCorruptionException : Exception
     {
-        public InvalidEventStreamException()
+        public EventStoreCorruptionException()
         {
         }
 
-        public InvalidEventStreamException(string message)
+        public EventStoreCorruptionException(string message)
             : base(message)
         {
         }
 
-        public InvalidEventStreamException(string message, Exception inner)
+        public EventStoreCorruptionException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        protected InvalidEventStreamException(
+        protected EventStoreCorruptionException(
             SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

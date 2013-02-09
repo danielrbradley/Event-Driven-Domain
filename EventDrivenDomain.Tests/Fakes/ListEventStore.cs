@@ -7,11 +7,11 @@
     {
         private readonly LinkedList<Event<TBaseCommand>> events = new LinkedList<Event<TBaseCommand>>();
 
-        public IEventEnumerable<TBaseCommand> Events
+        public IEnumerable<Event<TBaseCommand>> Events
         {
             get
             {
-                return this.events.AsEventEnumerable();
+                return this.events;
             }
         }
 

@@ -6,20 +6,29 @@
     {
         private readonly IEventDecoder<TBaseCommand> eventDecoder;
 
-        private readonly IEventStreamValidationReadWrapperProvider eventStreamValidationReadWrapperProvider;
+        private readonly IHashedStreamReader hashedStreamReader;
 
-        public EventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IEventStreamValidationReadWrapperProvider eventStreamValidationReadWrapperProvider)
+        public EventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IHashedStreamReader hashedStreamReader)
         {
             this.eventDecoder = eventDecoder;
-            this.eventStreamValidationReadWrapperProvider = eventStreamValidationReadWrapperProvider;
+            this.hashedStreamReader = hashedStreamReader;
         }
 
-        public Event<TBaseCommand> Read(EventReadState state, Stream stream, out string hash)
+        public EventReadResult<TBaseCommand> Read(Stream stream)
         {
-            var validationReadWrapper = eventStreamValidationReadWrapperProvider.GetValidationReadWrapper(stream);
-            validationReadWrapper.Validate(state.PreviousHash, out hash);
-            var eventToReturn = this.eventDecoder.ReadEvent(validationReadWrapper.InnerStream);
-            return eventToReturn;
+            using (var contentStream = new MemoryStream())
+            {
+                string previousHash, expectedStreamHash, actualStreamHash;
+                this.hashedStreamReader.Read(stream, contentStream, out previousHash, out expectedStreamHash, out actualStreamHash);
+                if (expectedStreamHash != actualStreamHash)
+                {
+                    throw new EventStoreCorruptionException("Event stream read internal hash mismatch.");
+                }
+
+                contentStream.Seek(0, SeekOrigin.Begin);
+                var eventResult = this.eventDecoder.ReadEvent(contentStream);
+                return new EventReadResult<TBaseCommand>(previousHash, eventResult, actualStreamHash);
+            }
         }
     }
 }

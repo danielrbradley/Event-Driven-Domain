@@ -1,5 +1,6 @@
 ﻿namespace EventDrivenDomain.LocalFileStorage
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -18,23 +19,34 @@
             this.eventFileReader = eventFileReader;
         }
 
-        public IEventEnumerable<TBaseCommand> Events
+        public IEnumerable<Event<TBaseCommand>> Events
         {
             get
             {
                 var searchPattern = string.Concat("*.", this.fileExtension);
-                var state = new EventReadState();
-                return
+                var fileResults =
                     Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
+                             .AsParallel()
                              .OrderBy(file => file)
-                             .Select(file =>
-                                 {
-                                     string hash;
-                                     var result = this.eventFileReader.Read(state, Path.Combine(folderPath, file), out hash);
-                                     state.PreviousHash = hash;
-                                     return result;
-                                 })
-                             .AsEventEnumerable();
+                             .Select(file => this.eventFileReader.Read(Path.Combine(folderPath, file)));
+
+                string previousHash = null;
+                bool isFirst = true;
+                foreach (var eventReadResult in fileResults)
+                {
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else if (previousHash != eventReadResult.PreviousHash)
+                    {
+                        throw new EventStoreCorruptionException("Event sequence hash mismatch");
+                    }
+
+                    yield return eventReadResult.Event;
+
+                    previousHash = eventReadResult.Hash;
+                }
             }
         }
     }

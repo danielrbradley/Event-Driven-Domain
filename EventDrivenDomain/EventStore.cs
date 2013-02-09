@@ -1,5 +1,7 @@
 ﻿namespace EventDrivenDomain
 {
+    using System.Collections.Generic;
+
     public class EventStore<TBaseCommand> : IEventStore<TBaseCommand>
     {
         private readonly ITimestampProvider timestampProvider;
@@ -29,7 +31,7 @@
             return newEvent;
         }
 
-        public IEventEnumerable<TBaseCommand> Events
+        public IEnumerable<Event<TBaseCommand>> Events
         {
             get
             {

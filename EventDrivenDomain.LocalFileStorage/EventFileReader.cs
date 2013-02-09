@@ -6,21 +6,24 @@
     {
         private readonly IEventStreamReader<TBaseCommand> eventStreamReader;
 
-        private readonly int bufferSize;
+        private readonly int fileStreamBufferSize;
 
-        public EventFileReader(IEventStreamReader<TBaseCommand> eventStreamReader, int bufferSize)
+        private readonly FileOptions fileStreamOptions;
+
+        public EventFileReader(IEventStreamReader<TBaseCommand> eventStreamReader, int fileStreamBufferSize, FileOptions fileStreamOptions)
         {
             this.eventStreamReader = eventStreamReader;
-            this.bufferSize = bufferSize;
+            this.fileStreamBufferSize = fileStreamBufferSize;
+            this.fileStreamOptions = fileStreamOptions;
         }
 
-        public Event<TBaseCommand> Read(EventReadState state, string filePath, out string hash)
+        public EventReadResult<TBaseCommand> Read(string filePath)
         {
             using (
                 var filestream = new FileStream(
-                    filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
+                    filePath, FileMode.Open, FileAccess.Read, FileShare.Read, fileStreamBufferSize, fileStreamOptions))
             {
-                return eventStreamReader.Read(state, filestream, out hash);
+                return eventStreamReader.Read(filestream);
             }
         }
     }

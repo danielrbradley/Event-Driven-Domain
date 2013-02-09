@@ -52,9 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
+    <Compile Include="EventStoreCorruptionException.cs" />
+    <Compile Include="EventReadResult.cs" />
     <Compile Include="IEventStreamValidatingWriter.cs" />
-    <Compile Include="EventEnumerableExtensions.cs" />
-    <Compile Include="EventReadState.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventStore.cs" />
@@ -64,19 +64,16 @@
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
     <Compile Include="IEventEncoder.cs" />
-    <Compile Include="IEventEnumerable.cs" />
     <Compile Include="IEventReader.cs" />
     <Compile Include="IEventReaderWriter.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventStoreWriteLock.cs" />
     <Compile Include="IEventStreamReader.cs" />
-    <Compile Include="IEventStreamValidationReadWrapper.cs" />
-    <Compile Include="IEventStreamValidationReadWrapperProvider.cs" />
     <Compile Include="IEventStreamWriter.cs" />
     <Compile Include="IEventWriter.cs" />
-    <Compile Include="InvalidEventStreamException.cs" />
     <Compile Include="IPreviousEventHashReader.cs" />
     <Compile Include="IReadableEventStore.cs" />
+    <Compile Include="IHashedStreamReader.cs" />
     <Compile Include="ITimestampProvider.cs" />
     <Compile Include="IWritableEventStore.cs" />
     <Compile Include="Message.cs" />
