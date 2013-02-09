@@ -1,4 +1,4 @@
-﻿namespace EventDrivenDomain.LocalFileStorage
+﻿namespace EventDrivenDomain
 {
     using System.IO;
 
