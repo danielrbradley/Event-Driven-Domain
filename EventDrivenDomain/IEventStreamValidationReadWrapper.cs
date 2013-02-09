@@ -2,7 +2,7 @@
 {
     using System.IO;
 
-    public interface IEventStreamValidationWrapper
+    public interface IEventStreamValidationReadWrapper
     {
         void Validate(string previousHash, out string hash);
 

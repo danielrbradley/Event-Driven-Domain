@@ -6,19 +6,19 @@
     {
         private readonly IEventDecoder<TBaseCommand> eventDecoder;
 
-        private readonly IEventStreamValidationWrapperProvider eventStreamWrapperProvider;
+        private readonly IEventStreamValidationReadWrapperProvider eventStreamValidationReadWrapperProvider;
 
-        public EventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IEventStreamValidationWrapperProvider eventStreamValidationWrapperProvider)
+        public EventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IEventStreamValidationReadWrapperProvider eventStreamValidationReadWrapperProvider)
         {
             this.eventDecoder = eventDecoder;
-            this.eventStreamWrapperProvider = eventStreamValidationWrapperProvider;
+            this.eventStreamValidationReadWrapperProvider = eventStreamValidationReadWrapperProvider;
         }
 
         public Event<TBaseCommand> Read(EventReadState state, Stream stream, out string hash)
         {
-            var validationWrapper = eventStreamWrapperProvider.GetValidationWrapper(stream);
-            validationWrapper.Validate(state.PreviousHash, out hash);
-            var eventToReturn = this.eventDecoder.ReadEvent(validationWrapper.InnerStream);
+            var validationReadWrapper = eventStreamValidationReadWrapperProvider.GetValidationReadWrapper(stream);
+            validationReadWrapper.Validate(state.PreviousHash, out hash);
+            var eventToReturn = this.eventDecoder.ReadEvent(validationReadWrapper.InnerStream);
             return eventToReturn;
         }
     }
