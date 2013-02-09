@@ -55,11 +55,15 @@
     <Compile Include="EventEnumerableExtensions.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventStore.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventEnumerable.cs" />
+    <Compile Include="IEventReader.cs" />
+    <Compile Include="IEventReaderWriter.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventWriter.cs" />
     <Compile Include="IReadableEventStore.cs" />
+    <Compile Include="ITimestampProvider.cs" />
     <Compile Include="IWritableEventStore.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageState.cs" />
