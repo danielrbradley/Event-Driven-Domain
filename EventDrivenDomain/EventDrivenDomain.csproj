@@ -54,7 +54,7 @@
     <Compile Include="ConcurrentBlockingQueue.cs" />
     <Compile Include="EventStoreCorruptionException.cs" />
     <Compile Include="EventReadResult.cs" />
-    <Compile Include="IEventStreamValidatingWriter.cs" />
+    <Compile Include="IHashedStreamWriter.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventStore.cs" />

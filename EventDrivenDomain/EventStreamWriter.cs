@@ -8,9 +8,9 @@
 
         private readonly IEventEncoder<TBaseCommand> eventEncoder;
 
-        private readonly IEventStreamValidatingWriter eventStreamValidatingWriter;
+        private readonly IHashedStreamWriter eventStreamValidatingWriter;
 
-        public EventStreamWriter(IPreviousEventHashReader previousEventHashReader, IEventEncoder<TBaseCommand> eventEncoder, IEventStreamValidatingWriter eventStreamValidatingWriter)
+        public EventStreamWriter(IPreviousEventHashReader previousEventHashReader, IEventEncoder<TBaseCommand> eventEncoder, IHashedStreamWriter eventStreamValidatingWriter)
         {
             this.previousEventHashReader = previousEventHashReader;
             this.eventEncoder = eventEncoder;
@@ -19,14 +19,14 @@
 
         public void Write(Stream stream, Event<TBaseCommand> eventToWrite)
         {
-            using (var innerStream = new MemoryStream())
+            using (var eventStream = new MemoryStream())
             {
-                this.eventEncoder.WriteEvent(innerStream, eventToWrite);
-                innerStream.Seek(0, SeekOrigin.Begin);
+                this.eventEncoder.WriteEvent(eventStream, eventToWrite);
+                eventStream.Seek(0, SeekOrigin.Begin);
 
                 string previousHash = this.previousEventHashReader.ReadPreviousHash();
 
-                eventStreamValidatingWriter.Write(stream, previousHash, innerStream);
+                eventStreamValidatingWriter.Write(eventStream, stream, previousHash);
             }
         }
     }

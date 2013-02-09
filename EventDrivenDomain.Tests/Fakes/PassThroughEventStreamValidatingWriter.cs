@@ -6,11 +6,11 @@
     /// A test validating writer which skips any kind of hash validation and simply
     /// writes the inner stream to the outer stream.
     /// </summary>
-    public class PassThroughEventStreamValidatingWriter : IEventStreamValidatingWriter
+    public class PassThroughEventStreamValidatingWriter : IHashedStreamWriter
     {
-        public void Write(Stream stream, string previousHash, Stream innerStream)
+        public void Write(Stream inputStream, Stream outputStream, string previousHash)
         {
-            innerStream.CopyTo(stream);
+            inputStream.CopyTo(outputStream);
         }
     }
 }
