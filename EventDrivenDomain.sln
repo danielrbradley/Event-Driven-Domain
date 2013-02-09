@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDrivenDomain.LocalFileStorage", "EventDrivenDomain.LocalFileStorage\EventDrivenDomain.LocalFileStorage.csproj", "{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{7E021F54-32A3-4E9B-8E41-0E733F8F302F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E021F54-32A3-4E9B-8E41-0E733F8F302F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E021F54-32A3-4E9B-8E41-0E733F8F302F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
