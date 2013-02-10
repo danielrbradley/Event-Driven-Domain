@@ -6,25 +6,25 @@
     {
         private readonly IEventEncoder<TBaseCommand> eventEncoder;
 
-        private readonly IStreamTranscodeAdapterFactory streamTranscodeAdapterFactory;
+        private readonly ITranscodingStreamFactory transcodingStreamFactory;
 
         public StreamEventWriter(IEventEncoder<TBaseCommand> eventEncoder)
         {
             this.eventEncoder = eventEncoder;
-            this.streamTranscodeAdapterFactory = new PassThroughStreamTranscodeAdapterFactory();
+            this.transcodingStreamFactory = new PassThroughTranscodingStreamFactory();
         }
 
-        public StreamEventWriter(IEventEncoder<TBaseCommand> eventEncoder, IStreamTranscodeAdapterFactory streamTranscodeAdapterFactory)
+        public StreamEventWriter(IEventEncoder<TBaseCommand> eventEncoder, ITranscodingStreamFactory transcodingStreamFactory)
         {
             this.eventEncoder = eventEncoder;
-            this.streamTranscodeAdapterFactory = streamTranscodeAdapterFactory;
+            this.transcodingStreamFactory = transcodingStreamFactory;
         }
 
         public void Write(Stream stream, Event<TBaseCommand> eventToWrite)
         {
-            using (var streamTrancodeAdapter = this.streamTranscodeAdapterFactory.CreateStreamTrancodeAdapter(stream))
+            using (var streamTrancodeAdapter = this.transcodingStreamFactory.CreateTrancodingStream(stream))
             {
-                this.eventEncoder.WriteEvent(streamTrancodeAdapter.InputStream, eventToWrite);
+                this.eventEncoder.WriteEvent(streamTrancodeAdapter, eventToWrite);
             }
         }
     }

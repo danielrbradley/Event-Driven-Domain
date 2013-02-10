@@ -72,15 +72,13 @@
     <Compile Include="IPreviousEventHashReader.cs" />
     <Compile Include="IHashedStreamReader.cs" />
     <Compile Include="IEnumerableEventStore.cs" />
-    <Compile Include="IStreamTranscodeAdapter.cs" />
-    <Compile Include="IStreamTranscodeAdapterFactory.cs" />
+    <Compile Include="ITranscodingStreamFactory.cs" />
     <Compile Include="ITimestampProvider.cs" />
     <Compile Include="IWritableEventStore.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageState.cs" />
     <Compile Include="MessageStateMachine.cs" />
-    <Compile Include="PassThroughStreamTranscodeAdapter.cs" />
-    <Compile Include="PassThroughStreamTranscodeAdapterFactory.cs" />
+    <Compile Include="PassThroughTranscodingStreamFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SequenceValidatedEventStoreEnumerable.cs" />
   </ItemGroup>

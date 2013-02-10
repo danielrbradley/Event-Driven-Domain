@@ -2,6 +2,6 @@
 {
     public interface IPreviousEventHashReader
     {
-        string ReadPreviousHash();
+        Hash ReadPreviousHash();
     }
 }
