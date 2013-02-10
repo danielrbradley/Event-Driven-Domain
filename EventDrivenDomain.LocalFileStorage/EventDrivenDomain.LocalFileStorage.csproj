@@ -43,7 +43,7 @@
     <Compile Include="EventFileWriter.cs" />
     <Compile Include="DirectoryEventStoreReader.cs" />
     <Compile Include="DirectoryEventStoreWriter.cs" />
-    <Compile Include="FilePathProvider.cs" />
+    <Compile Include="EventFilenameGenerator.cs" />
     <Compile Include="IEventFileReader.cs" />
     <Compile Include="IEventFileWriter.cs" />
     <Compile Include="IEventFilenameGenerator.cs" />

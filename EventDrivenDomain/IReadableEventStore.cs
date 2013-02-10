@@ -1,9 +1,6 @@
 ﻿namespace EventDrivenDomain
 {
-    using System.Collections.Generic;
-
-    public interface IReadableEventStore<TBaseCommand>
+    public interface IReadableEventStore<TBaseCommand> : IEventStoreEnumerator<TBaseCommand>
     {
-        IEnumerable<Event<TBaseCommand>> Events { get; }
     }
 }

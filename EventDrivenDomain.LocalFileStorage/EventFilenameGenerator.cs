@@ -1,7 +1,5 @@
 ﻿namespace EventDrivenDomain.LocalFileStorage
 {
-    using System.IO;
-
     public class EventFilenameGenerator : IEventFilenameGenerator
     {
         private readonly string timestampFormatString;

@@ -1,7 +1,5 @@
 ﻿namespace EventDrivenDomain
 {
-    using System.Security.Policy;
-
     public sealed class EventReadResult<TBaseCommand>
     {
         private readonly Hash previousHash;

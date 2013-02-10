@@ -4,6 +4,6 @@
 
     public interface IEventStoreReader<TBaseCommand>
     {
-        IEnumerable<Event<TBaseCommand>> Events { get; }
+        IEnumerable<EventReadResult<TBaseCommand>> EventReadResults { get; }
     }
 }

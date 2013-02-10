@@ -19,34 +19,16 @@
             this.eventFileReader = eventFileReader;
         }
 
-        public IEnumerable<Event<TBaseCommand>> Events
+        public IEnumerable<EventReadResult<TBaseCommand>> EventReadResults
         {
             get
             {
                 var searchPattern = string.Concat("*.", this.fileExtension);
-                var fileResults =
+                return
                     Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .AsParallel()
                              .OrderBy(file => file)
                              .Select(file => this.eventFileReader.Read(Path.Combine(folderPath, file)));
-
-                Hash previousHash = Hash.None;
-                bool isFirst = true;
-                foreach (var eventReadResult in fileResults)
-                {
-                    if (isFirst)
-                    {
-                        isFirst = false;
-                    }
-                    else if (previousHash != eventReadResult.PreviousHash)
-                    {
-                        throw new EventStoreCorruptionException("Event sequence hash mismatch");
-                    }
-
-                    yield return eventReadResult.Event;
-
-                    previousHash = eventReadResult.Hash;
-                }
             }
         }
     }

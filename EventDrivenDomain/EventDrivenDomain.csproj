@@ -61,26 +61,26 @@
     <Compile Include="EventStore.cs" />
     <Compile Include="EventStreamReader.cs" />
     <Compile Include="EventStreamWriter.cs" />
-    <Compile Include="HashFailureException.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
     <Compile Include="IEventEncoder.cs" />
-    <Compile Include="IEventStoreReader.cs" />
-    <Compile Include="IEventStoreReaderWriter.cs" />
+    <Compile Include="IEventStoreEnumerator.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventStoreWriteLock.cs" />
     <Compile Include="IEventStreamReader.cs" />
     <Compile Include="IEventStreamWriter.cs" />
     <Compile Include="IEventStoreWriter.cs" />
     <Compile Include="IPreviousEventHashReader.cs" />
-    <Compile Include="IReadableEventStore.cs" />
+    <Compile Include="IEventStoreReader.cs" />
     <Compile Include="IHashedStreamReader.cs" />
+    <Compile Include="IReadableEventStore.cs" />
     <Compile Include="ITimestampProvider.cs" />
     <Compile Include="IWritableEventStore.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageState.cs" />
     <Compile Include="MessageStateMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EventStoreEnumerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

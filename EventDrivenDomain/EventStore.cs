@@ -8,20 +8,13 @@
 
         private readonly IEventStoreWriter<TBaseCommand> eventStoreWriter;
 
-        private readonly IEventStoreReader<TBaseCommand> eventStoreReader;
+        private readonly IEventStoreEnumerator<TBaseCommand> eventStoreEnumerator;
 
-        public EventStore(ITimestampProvider timestampProvider, IEventStoreReaderWriter<TBaseCommand> eventStoreReaderWriter)
-        {
-            this.timestampProvider = timestampProvider;
-            this.eventStoreWriter = eventStoreReaderWriter;
-            this.eventStoreReader = eventStoreReaderWriter;
-        }
-
-        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEventStoreReader<TBaseCommand> eventStoreStoreReader)
+        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEventStoreEnumerator<TBaseCommand> eventStoreEnumerator)
         {
             this.timestampProvider = timestampProvider;
             this.eventStoreWriter = eventStoreStoreWriter;
-            this.eventStoreReader = eventStoreStoreReader;
+            this.eventStoreEnumerator = eventStoreEnumerator;
         }
 
         public Event<TBaseCommand> Write(Message<TBaseCommand> message)
@@ -35,7 +28,7 @@
         {
             get
             {
-                return this.eventStoreReader.Events;
+                return this.eventStoreEnumerator.Events;
             }
         }
     }

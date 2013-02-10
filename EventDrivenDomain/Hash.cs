@@ -133,7 +133,6 @@
 
         public static bool operator ==(Hash a, Hash b)
         {
-            // Return true if the fields match:
             return a.Equals(b);
         }
 
@@ -141,6 +140,5 @@
         {
             return !(a == b);
         }
-
     }
 }
