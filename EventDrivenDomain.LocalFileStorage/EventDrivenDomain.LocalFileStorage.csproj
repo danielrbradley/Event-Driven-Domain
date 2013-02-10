@@ -39,12 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventFileReader.cs" />
+    <Compile Include="SequenceValidatableEventFileReader.cs" />
     <Compile Include="EventFileWriter.cs" />
-    <Compile Include="DirectoryEventStoreReader.cs" />
+    <Compile Include="DirectorySequenceValidatableEventEnumerable.cs" />
     <Compile Include="DirectoryEventStoreWriter.cs" />
     <Compile Include="EventFilenameGenerator.cs" />
-    <Compile Include="IEventFileReader.cs" />
+    <Compile Include="ISequenceValidatableEventFileReader.cs" />
     <Compile Include="IEventFileWriter.cs" />
     <Compile Include="IEventFilenameGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

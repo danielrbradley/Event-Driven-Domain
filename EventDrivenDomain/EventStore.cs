@@ -8,13 +8,13 @@
 
         private readonly IEventStoreWriter<TBaseCommand> eventStoreWriter;
 
-        private readonly IEventStoreEnumerator<TBaseCommand> eventStoreEnumerator;
+        private readonly IEnumerable<Event<TBaseCommand>> events;
 
-        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEventStoreEnumerator<TBaseCommand> eventStoreEnumerator)
+        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEnumerable<Event<TBaseCommand>> events)
         {
             this.timestampProvider = timestampProvider;
             this.eventStoreWriter = eventStoreStoreWriter;
-            this.eventStoreEnumerator = eventStoreEnumerator;
+            this.events = events;
         }
 
         public Event<TBaseCommand> Write(IMessage<TBaseCommand> message)
@@ -28,7 +28,7 @@
         {
             get
             {
-                return this.eventStoreEnumerator.Events;
+                return this.events;
             }
         }
     }

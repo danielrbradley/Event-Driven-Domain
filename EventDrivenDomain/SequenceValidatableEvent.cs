@@ -1,6 +1,6 @@
 ﻿namespace EventDrivenDomain
 {
-    public sealed class EventReadResult<TBaseCommand>
+    public sealed class SequenceValidatableEvent<TBaseCommand>
     {
         private readonly Hash previousHash;
 
@@ -8,7 +8,7 @@
 
         private readonly Hash hash;
 
-        public EventReadResult(Hash previousHash, Event<TBaseCommand> eventResult, Hash hash)
+        public SequenceValidatableEvent(Hash previousHash, Event<TBaseCommand> eventResult, Hash hash)
         {
             this.previousHash = previousHash;
             this.eventResult = eventResult;

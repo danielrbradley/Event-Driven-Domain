@@ -2,19 +2,19 @@
 {
     using System.IO;
 
-    public class EventStreamReader<TBaseCommand> : IEventStreamReader<TBaseCommand>
+    public class SequenceValidatableEventStreamReader<TBaseCommand> : ISequenceValidatableEventStreamReader<TBaseCommand>
     {
         private readonly IEventDecoder<TBaseCommand> eventDecoder;
 
         private readonly IHashedStreamReader hashedStreamReader;
 
-        public EventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IHashedStreamReader hashedStreamReader)
+        public SequenceValidatableEventStreamReader(IEventDecoder<TBaseCommand> eventDecoder, IHashedStreamReader hashedStreamReader)
         {
             this.eventDecoder = eventDecoder;
             this.hashedStreamReader = hashedStreamReader;
         }
 
-        public EventReadResult<TBaseCommand> Read(Stream stream)
+        public SequenceValidatableEvent<TBaseCommand> Read(Stream stream)
         {
             using (var contentStream = new MemoryStream())
             {
@@ -27,7 +27,7 @@
 
                 contentStream.Seek(0, SeekOrigin.Begin);
                 var eventResult = this.eventDecoder.ReadEvent(contentStream);
-                return new EventReadResult<TBaseCommand>(previousHash, eventResult, actualStreamHash);
+                return new SequenceValidatableEvent<TBaseCommand>(previousHash, eventResult, actualStreamHash);
             }
         }
     }

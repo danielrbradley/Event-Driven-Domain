@@ -5,17 +5,34 @@ This library is aimed at making it easier to build event driven domain objects w
 The EventStoreBackedAggregateRoot class is designed to encapsulate the complexity of taming a multi-threaded outside world into a serialised queue of messages which can be written to an event store before completing the message.
 
 ## Example Protobuf Files Event Store Stack
+(* = planned implementation)
 
                               -----------EventStore------------
                              /                |                \
-         EventStoreEnumerator         TimestampProvider     EventStoreWriter
-               |                                                   |
-    DirectoryEventStoreReader                           DirectoryEventStoreWriter
-               |                                       /             |           \
-         EventFileReader                    EventFileWriter  EventStoreWriteLock  EventFilenameGenerator 
-               |                                    |
-      HashedEventStreamReader              StreamEventWriter
-               |                          /                 \
-    ProtobufEventStreamDecoder  ProtobufStreamEncoder  SequenceValidationTranscoderAdapterFactory  
-                                                                 |                                 \
-                                                     HashedStreamIntegretyTranscoderAdapterFactory  PreviousEventHashReader
+    IEnumerable<Event<TBaseCommand>>  ITimestampProvider   IEventStoreWriter
+
+### Writer Implementations
+
+                           EventStoreWriter
+                              |
+                   DirectoryEventStoreWriter
+                  /             |           \
+       EventFileWriter  EventStoreWriteLock  EventFilenameGenerator 
+               |
+               StreamEventWriter
+              /                 \
+    *ProtobufStreamEncoder SequenceValidationTranscoderAdapterFactory
+                                     |                               \
+                      HashedStreamIntegretyTranscoderAdapterFactory  PreviousEventHashReader
+
+### Enumerable Implementations
+
+    SequenceValidatingEventStoreEnumerable  
+               |
+    DirectorySequenceValidatableEventEnumerable
+               |
+    SequenceValidatableEventFileReader
+               |
+    SequenceValidatableEventStreamReader
+               |                       \
+    *ProtobufEventStreamDecoder   *HashedStreamReader
