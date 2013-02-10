@@ -18,7 +18,7 @@
         {
             using (var contentStream = new MemoryStream())
             {
-                string previousHash, expectedStreamHash, actualStreamHash;
+                Hash previousHash, expectedStreamHash, actualStreamHash;
                 this.hashedStreamReader.Read(stream, contentStream, out previousHash, out expectedStreamHash, out actualStreamHash);
                 if (expectedStreamHash != actualStreamHash)
                 {

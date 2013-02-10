@@ -30,7 +30,7 @@
                              .OrderBy(file => file)
                              .Select(file => this.eventFileReader.Read(Path.Combine(folderPath, file)));
 
-                string previousHash = null;
+                Hash previousHash = Hash.None;
                 bool isFirst = true;
                 foreach (var eventReadResult in fileResults)
                 {

@@ -12,6 +12,6 @@
         /// <param name="previousHash">Returns the previous hash read from the stream.</param>
         /// <param name="expectedStreamHash">Returns the expected hash of the input stream (excluding expected hash).</param>
         /// <param name="actualStreamHash">Returns the actual hash of the input stream (excluding expected hash).</param>
-        void Read(Stream inputStream, Stream outputStream, out string previousHash, out string expectedStreamHash, out string actualStreamHash);
+        void Read(Stream inputStream, Stream outputStream, out Hash previousHash, out Hash expectedStreamHash, out Hash actualStreamHash);
     }
 }

@@ -1,21 +1,23 @@
 ﻿namespace EventDrivenDomain
 {
+    using System.Security.Policy;
+
     public sealed class EventReadResult<TBaseCommand>
     {
-        private readonly string previousHash;
+        private readonly Hash previousHash;
 
         private readonly Event<TBaseCommand> eventResult;
 
-        private readonly string hash;
+        private readonly Hash hash;
 
-        public EventReadResult(string previousHash, Event<TBaseCommand> eventResult, string hash)
+        public EventReadResult(Hash previousHash, Event<TBaseCommand> eventResult, Hash hash)
         {
             this.previousHash = previousHash;
             this.eventResult = eventResult;
             this.hash = hash;
         }
 
-        public string PreviousHash
+        public Hash PreviousHash
         {
             get
             {
@@ -31,7 +33,7 @@
             }
         }
 
-        public string Hash
+        public Hash Hash
         {
             get
             {
