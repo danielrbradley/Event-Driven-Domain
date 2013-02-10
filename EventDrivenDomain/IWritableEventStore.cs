@@ -2,6 +2,6 @@
 {
     public interface IWritableEventStore<TBaseCommand>
     {
-        Event<TBaseCommand> Write(Message<TBaseCommand> message);
+        Event<TBaseCommand> Write(IMessage<TBaseCommand> message);
     }
 }

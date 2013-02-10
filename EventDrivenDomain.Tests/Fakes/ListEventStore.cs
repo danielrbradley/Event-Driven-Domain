@@ -15,7 +15,7 @@
             }
         }
 
-        public Event<TBaseCommand> Write(Message<TBaseCommand> message)
+        public Event<TBaseCommand> Write(IMessage<TBaseCommand> message)
         {
             var newEvent = new Event<TBaseCommand>(message, DateTime.UtcNow);
             this.events.AddLast(newEvent);

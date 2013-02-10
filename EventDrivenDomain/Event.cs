@@ -8,21 +8,10 @@
 
         private readonly TBaseCommand commandExecuted;
 
-        private readonly Guid id;
-
-        public Event(Message<TBaseCommand> commandExecuted, DateTime timestamp)
+        public Event(IMessage<TBaseCommand> commandExecuted, DateTime timestamp)
         {
-            this.id = commandExecuted.Id;
             this.timestamp = timestamp;
             this.commandExecuted = commandExecuted.Command;
-        }
-
-        public Guid Id
-        {
-            get
-            {
-                return id;
-            }
         }
 
         public DateTime Timestamp

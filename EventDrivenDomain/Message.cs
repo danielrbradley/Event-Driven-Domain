@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
 
-    public sealed class Message<TBaseCommand> : IDisposable
+    public sealed class Message<TBaseCommand> : IDisposable, IMessage<TBaseCommand>
     {
         private readonly TBaseCommand command;
 

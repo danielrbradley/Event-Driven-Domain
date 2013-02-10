@@ -65,15 +65,9 @@
             disposeCompleted.Set();
         }
 
-        protected virtual Guid Execute(TBaseCommand command)
+        protected virtual void Execute(TBaseCommand command)
         {
             var message = new Message<TBaseCommand>(command);
-            this.ProcessMessage(message);
-            return message.Id;
-        }
-
-        private void ProcessMessage(Message<TBaseCommand> message)
-        {
             this.queue.Enqueue(message);
             message.WaitCompletion();
         }

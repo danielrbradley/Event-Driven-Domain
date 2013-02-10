@@ -59,6 +59,7 @@
     <Compile Include="Event.cs" />
     <Compile Include="EventStore.cs" />
     <Compile Include="EventStreamReader.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="StreamEventWriter.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
