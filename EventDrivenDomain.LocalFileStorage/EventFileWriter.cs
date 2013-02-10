@@ -4,13 +4,13 @@
 
     public class EventFileWriter<TBaseCommand> : IEventFileWriter<TBaseCommand>
     {
-        private readonly IEventStreamWriter<TBaseCommand> eventStreamWriter;
+        private readonly IStreamEventWriter<TBaseCommand> streamEventWriter;
 
         private readonly int bufferSize;
 
-        public EventFileWriter(IEventStreamWriter<TBaseCommand> eventStreamWriter, int bufferSize)
+        public EventFileWriter(IStreamEventWriter<TBaseCommand> streamEventWriter, int bufferSize)
         {
-            this.eventStreamWriter = eventStreamWriter;
+            this.streamEventWriter = streamEventWriter;
             this.bufferSize = bufferSize;
         }
 
@@ -25,7 +25,7 @@
                     bufferSize,
                     FileOptions.SequentialScan))
             {
-                eventStreamWriter.Write(filestream, eventToWrite);
+                this.streamEventWriter.Write(filestream, eventToWrite);
             }
         }
     }

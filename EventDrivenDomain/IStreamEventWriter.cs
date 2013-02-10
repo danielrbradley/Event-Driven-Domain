@@ -2,7 +2,7 @@
 {
     using System.IO;
 
-    public interface IEventStreamWriter<TBaseCommand>
+    public interface IStreamEventWriter<TBaseCommand>
     {
         void Write(Stream stream, Event<TBaseCommand> eventToWrite);
     }

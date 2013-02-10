@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fakes\ListEventStore.cs" />
-    <Compile Include="Fakes\PassThroughEventStreamValidatingWriter.cs" />
     <Compile Include="Fakes\Users\UpdateName.cs" />
     <Compile Include="Fakes\Users\User.cs" />
     <Compile Include="Fakes\Users\IUserCommand.cs" />
