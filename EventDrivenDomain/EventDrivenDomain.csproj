@@ -60,6 +60,7 @@
     <Compile Include="EventStore.cs" />
     <Compile Include="SequenceValidatableEventStreamReader.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="SequenceValidationTranscoderAdapterFactory.cs" />
     <Compile Include="StreamEventWriter.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
