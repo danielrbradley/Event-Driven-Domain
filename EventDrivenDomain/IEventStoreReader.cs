@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IEventReader<TBaseCommand>
+    public interface IEventStoreReader<TBaseCommand>
     {
         IEnumerable<Event<TBaseCommand>> Events { get; }
     }

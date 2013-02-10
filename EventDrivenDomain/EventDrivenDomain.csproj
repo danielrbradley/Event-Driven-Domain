@@ -65,13 +65,13 @@
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
     <Compile Include="IEventEncoder.cs" />
-    <Compile Include="IEventReader.cs" />
-    <Compile Include="IEventReaderWriter.cs" />
+    <Compile Include="IEventStoreReader.cs" />
+    <Compile Include="IEventStoreReaderWriter.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventStoreWriteLock.cs" />
     <Compile Include="IEventStreamReader.cs" />
     <Compile Include="IEventStreamWriter.cs" />
-    <Compile Include="IEventWriter.cs" />
+    <Compile Include="IEventStoreWriter.cs" />
     <Compile Include="IPreviousEventHashReader.cs" />
     <Compile Include="IReadableEventStore.cs" />
     <Compile Include="IHashedStreamReader.cs" />

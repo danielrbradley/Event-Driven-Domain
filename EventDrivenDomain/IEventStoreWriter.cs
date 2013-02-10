@@ -1,6 +1,6 @@
 ﻿namespace EventDrivenDomain
 {
-    public interface IEventWriter<TBaseCommand>
+    public interface IEventStoreWriter<TBaseCommand>
     {
         void Write(Event<TBaseCommand> eventToWrite);
     }

@@ -6,28 +6,28 @@
     {
         private readonly ITimestampProvider timestampProvider;
 
-        private readonly IEventWriter<TBaseCommand> eventWriter;
+        private readonly IEventStoreWriter<TBaseCommand> eventStoreWriter;
 
-        private readonly IEventReader<TBaseCommand> eventReader;
+        private readonly IEventStoreReader<TBaseCommand> eventStoreReader;
 
-        public EventStore(ITimestampProvider timestampProvider, IEventReaderWriter<TBaseCommand> eventReaderWriter)
+        public EventStore(ITimestampProvider timestampProvider, IEventStoreReaderWriter<TBaseCommand> eventStoreReaderWriter)
         {
             this.timestampProvider = timestampProvider;
-            this.eventWriter = eventReaderWriter;
-            this.eventReader = eventReaderWriter;
+            this.eventStoreWriter = eventStoreReaderWriter;
+            this.eventStoreReader = eventStoreReaderWriter;
         }
 
-        public EventStore(ITimestampProvider timestampProvider, IEventWriter<TBaseCommand> eventWriter, IEventReader<TBaseCommand> eventReader)
+        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEventStoreReader<TBaseCommand> eventStoreStoreReader)
         {
             this.timestampProvider = timestampProvider;
-            this.eventWriter = eventWriter;
-            this.eventReader = eventReader;
+            this.eventStoreWriter = eventStoreStoreWriter;
+            this.eventStoreReader = eventStoreStoreReader;
         }
 
         public Event<TBaseCommand> Write(Message<TBaseCommand> message)
         {
             var newEvent = new Event<TBaseCommand>(message, this.timestampProvider.GetTimestamp());
-            this.eventWriter.Write(newEvent);
+            this.eventStoreWriter.Write(newEvent);
             return newEvent;
         }
 
@@ -35,7 +35,7 @@
         {
             get
             {
-                return eventReader.Events;
+                return this.eventStoreReader.Events;
             }
         }
     }

@@ -4,7 +4,7 @@
     using System.IO;
     using System.Linq;
 
-    public class FileEventReader<TBaseCommand> : IEventReader<TBaseCommand>
+    public class FileEventStoreReader<TBaseCommand> : IEventStoreReader<TBaseCommand>
     {
         private readonly string folderPath;
 
@@ -12,7 +12,7 @@
 
         private readonly IEventFileReader<TBaseCommand> eventFileReader;
 
-        public FileEventReader(string folderPath, string fileExtension, IEventFileReader<TBaseCommand> eventFileReader)
+        public FileEventStoreReader(string folderPath, string fileExtension, IEventFileReader<TBaseCommand> eventFileReader)
         {
             this.folderPath = folderPath;
             this.fileExtension = fileExtension;
