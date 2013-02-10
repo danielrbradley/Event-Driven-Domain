@@ -8,12 +8,15 @@
 
         private readonly IEventFilenameGenerator filePathProvider;
 
+        private readonly IEventStoreWriteLock writeLock;
+
         private readonly IEventFileWriter<TBaseCommand> eventFileWriter;
 
-        public DirectoryEventStoreWriter(string path, IEventFilenameGenerator filePathProvider, IEventFileWriter<TBaseCommand> eventFileWriter)
+        public DirectoryEventStoreWriter(string path, IEventFilenameGenerator filePathProvider, IEventStoreWriteLock writeLock, IEventFileWriter<TBaseCommand> eventFileWriter)
         {
             this.path = path;
             this.filePathProvider = filePathProvider;
+            this.writeLock = writeLock;
             this.eventFileWriter = eventFileWriter;
         }
 
@@ -21,7 +24,10 @@
         {
             var filename = this.filePathProvider.CreateFilename(eventToWrite);
             var filePath = Path.Combine(this.path, filename);
-            this.eventFileWriter.Write(filePath, eventToWrite);
+            using (writeLock.WaitAquire())
+            {
+                this.eventFileWriter.Write(filePath, eventToWrite);
+            }
         }
     }
 }

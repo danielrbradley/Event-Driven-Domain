@@ -11,9 +11,9 @@ The EventStoreBackedAggregateRoot class is designed to encapsulate the complexit
          EventStoreEnumerator         TimestampProvider     EventStoreWriter
                |                                                   |
     DirectoryEventStoreReader                           DirectoryEventStoreWriter
-               |                                       /                         \
-         EventFileReader                    EventFileWriter                   EventFilenameGenerator 
-               |                           /               \
-      HashedEventStreamReader   EventStoreWriteLock  HashedEventStreamWriter
-               |                                    /                       \
-    ProtobufEventStreamDecoder           PreviousEventHashReader ProtobufStreamEncoder
+               |                                       /             |           \
+         EventFileReader                    EventFileWriter  EventStoreWriteLock  EventFilenameGenerator 
+               |                                  |
+      HashedEventStreamReader              EventStreamWriter
+               |                          /                 \
+    ProtobufEventStreamDecoder   PreviousEventHashReader ProtobufStreamEncoder
