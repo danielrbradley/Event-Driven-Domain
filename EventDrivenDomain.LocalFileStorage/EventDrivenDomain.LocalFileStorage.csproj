@@ -46,7 +46,7 @@
     <Compile Include="FilePathProvider.cs" />
     <Compile Include="IEventFileReader.cs" />
     <Compile Include="IEventFileWriter.cs" />
-    <Compile Include="IFilePathProvider.cs" />
+    <Compile Include="IEventFilenameGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
