@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
+    <Compile Include="CryptoStreamHashGenerator.cs" />
     <Compile Include="EventStoreCorruptionException.cs" />
     <Compile Include="HashChecksumTranscodingStreamFactory.cs" />
     <Compile Include="IStreamHashGenerator.cs" />

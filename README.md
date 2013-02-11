@@ -17,7 +17,7 @@ The EventStoreBackedAggregateRoot class is designed to encapsulate the complexit
                               |
                    DirectoryEventStoreWriter
                   /             |           \
-       EventFileWriter  EventStoreWriteLock  EventFilenameGenerator 
+       EventFileWriter  *EventStoreWriteLock EventFilenameGenerator 
                |
                StreamEventWriter
               /                 \
@@ -25,7 +25,7 @@ The EventStoreBackedAggregateRoot class is designed to encapsulate the complexit
                                      |                        \
                       HashChecksumTranscodingStream  *PreviousEventHashReader
                                      |
-                         *CryptoStreamHashGenerator
+                         CryptoStreamHashGenerator
 
 ### Enumerable Implementations
 
