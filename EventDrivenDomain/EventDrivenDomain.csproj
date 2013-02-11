@@ -67,7 +67,7 @@
     <Compile Include="StreamEventWriter.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />
-    <Compile Include="IEventEncoder.cs" />
+    <Compile Include="ISerializer.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventStoreWriteLock.cs" />
     <Compile Include="ISequenceValidatableEventStreamReader.cs" />

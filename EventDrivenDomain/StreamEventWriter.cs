@@ -4,19 +4,19 @@
 
     public class StreamEventWriter<TBaseCommand> : IStreamEventWriter<TBaseCommand>
     {
-        private readonly IEventEncoder<TBaseCommand> eventEncoder;
+        private readonly ISerializer<Event<TBaseCommand>> serializer;
 
         private readonly ITranscodingStreamFactory transcodingStreamFactory;
 
-        public StreamEventWriter(IEventEncoder<TBaseCommand> eventEncoder)
+        public StreamEventWriter(ISerializer<Event<TBaseCommand>> serializer)
         {
-            this.eventEncoder = eventEncoder;
+            this.serializer = serializer;
             this.transcodingStreamFactory = new PassThroughTranscodingStreamFactory();
         }
 
-        public StreamEventWriter(IEventEncoder<TBaseCommand> eventEncoder, ITranscodingStreamFactory transcodingStreamFactory)
+        public StreamEventWriter(ISerializer<Event<TBaseCommand>> serializer, ITranscodingStreamFactory transcodingStreamFactory)
         {
-            this.eventEncoder = eventEncoder;
+            this.serializer = serializer;
             this.transcodingStreamFactory = transcodingStreamFactory;
         }
 
@@ -24,7 +24,7 @@
         {
             using (var streamTrancodeAdapter = this.transcodingStreamFactory.CreateTrancodingStream(stream))
             {
-                this.eventEncoder.WriteEvent(streamTrancodeAdapter, eventToWrite);
+                this.serializer.SerializeToStream(streamTrancodeAdapter, eventToWrite);
             }
         }
     }
