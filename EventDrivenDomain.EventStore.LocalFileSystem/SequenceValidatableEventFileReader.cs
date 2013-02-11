@@ -2,6 +2,8 @@
 {
     using System.IO;
 
+    using EventDrivenDomain.EventStore.Streams;
+
     public class SequenceValidatableEventFileReader<TBaseCommand> : ISequenceValidatableEventFileReader<TBaseCommand>
     {
         private readonly ISequenceValidatableEventStreamReader<TBaseCommand> sequenceValidatableEventStreamReader;

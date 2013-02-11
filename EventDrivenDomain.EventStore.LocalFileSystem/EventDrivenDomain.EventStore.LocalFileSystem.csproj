@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore.Streams\EventDrivenDomain.EventStore.Streams.csproj">
+      <Project>{27406cfc-e0b5-4eb8-8fcd-3bdf4ee3a245}</Project>
+      <Name>EventDrivenDomain.EventStore.Streams</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventDrivenDomain.EventStore\EventDrivenDomain.EventStore.csproj">
       <Project>{934e1eac-aeea-478e-bd6d-f7101c5994c8}</Project>
       <Name>EventDrivenDomain</Name>

@@ -2,6 +2,8 @@
 {
     using System.IO;
 
+    using EventDrivenDomain.EventStore.Streams;
+
     public class EventFileWriter<TBaseCommand> : IEventFileWriter<TBaseCommand>
     {
         private readonly IStreamEventWriter<TBaseCommand> streamEventWriter;

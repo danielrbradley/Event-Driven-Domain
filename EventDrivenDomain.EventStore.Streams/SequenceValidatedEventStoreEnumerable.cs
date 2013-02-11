@@ -1,4 +1,4 @@
-﻿namespace EventDrivenDomain.EventStore
+﻿namespace EventDrivenDomain.EventStore.Streams
 {
     using System.Collections;
     using System.Collections.Generic;
