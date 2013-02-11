@@ -7,14 +7,25 @@
     {
         private readonly IPreviousEventHashReader previousEventHashReader;
 
+        private readonly ITranscodingStreamFactory transcodingStreamFactory;
+
         public SequenceValidationTranscoderAdapterFactory(IPreviousEventHashReader previousEventHashReader)
+            : this(previousEventHashReader, new PassThroughTranscodingStreamFactory())
+        {
+        }
+
+        public SequenceValidationTranscoderAdapterFactory(IPreviousEventHashReader previousEventHashReader, ITranscodingStreamFactory transcodingStreamFactory)
         {
             this.previousEventHashReader = previousEventHashReader;
+            this.transcodingStreamFactory = transcodingStreamFactory;
         }
 
         public Stream CreateTrancodingStream(Stream outputStream)
         {
-            return new SequenceValidationTranscoderAdapterStream(outputStream, previousEventHashReader);
+            using (var transcodingStream = this.transcodingStreamFactory.CreateTrancodingStream(outputStream))
+            {
+                return new SequenceValidationTranscoderAdapterStream(transcodingStream, previousEventHashReader);
+            }
         }
 
         internal class SequenceValidationTranscoderAdapterStream : Stream
