@@ -4,6 +4,6 @@
 
     public interface ISerializer<in T>
     {
-        void SerializeToStream(Stream stream, T eventToWrite);
+        void SerializeToStream(Stream destination, T objectToWrite);
     }
 }

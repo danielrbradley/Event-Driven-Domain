@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.LocalFileSystem"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Streams", "EventDrivenDomain.EventStore.Streams\EventStore.Streams.csproj", "{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDrivenDomain.EventStore.Streams.protobuf-net", "EventDrivenDomain.EventStore.Streams.protobuf-net\EventDrivenDomain.EventStore.Streams.protobuf-net.csproj", "{AB4FF3D8-99F5-4329-A52A-973DC703A22E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB4FF3D8-99F5-4329-A52A-973DC703A22E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4FF3D8-99F5-4329-A52A-973DC703A22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4FF3D8-99F5-4329-A52A-973DC703A22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4FF3D8-99F5-4329-A52A-973DC703A22E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
