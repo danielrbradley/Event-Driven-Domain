@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="ConcurrentBlockingQueue.cs" />
     <Compile Include="EventStoreCorruptionException.cs" />
+    <Compile Include="HashChecksumTranscodingStreamFactory.cs" />
+    <Compile Include="IStreamHashGenerator.cs" />
     <Compile Include="SequenceValidatableEvent.cs" />
     <Compile Include="Hash.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
@@ -60,7 +62,7 @@
     <Compile Include="EventStore.cs" />
     <Compile Include="SequenceValidatableEventStreamReader.cs" />
     <Compile Include="IMessage.cs" />
-    <Compile Include="SequenceValidationTranscoderAdapterFactory.cs" />
+    <Compile Include="SequenceValidationTranscodingStreamFactory.cs" />
     <Compile Include="StreamEventWriter.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IEventDecoder.cs" />

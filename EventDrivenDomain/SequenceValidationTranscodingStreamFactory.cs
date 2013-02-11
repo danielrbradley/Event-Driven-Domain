@@ -3,18 +3,18 @@
     using System;
     using System.IO;
 
-    public class SequenceValidationTranscoderAdapterFactory : ITranscodingStreamFactory
+    public class SequenceValidationTranscodingStreamFactory : ITranscodingStreamFactory
     {
         private readonly IPreviousEventHashReader previousEventHashReader;
 
         private readonly ITranscodingStreamFactory transcodingStreamFactory;
 
-        public SequenceValidationTranscoderAdapterFactory(IPreviousEventHashReader previousEventHashReader)
+        public SequenceValidationTranscodingStreamFactory(IPreviousEventHashReader previousEventHashReader)
             : this(previousEventHashReader, new PassThroughTranscodingStreamFactory())
         {
         }
 
-        public SequenceValidationTranscoderAdapterFactory(IPreviousEventHashReader previousEventHashReader, ITranscodingStreamFactory transcodingStreamFactory)
+        public SequenceValidationTranscodingStreamFactory(IPreviousEventHashReader previousEventHashReader, ITranscodingStreamFactory transcodingStreamFactory)
         {
             this.previousEventHashReader = previousEventHashReader;
             this.transcodingStreamFactory = transcodingStreamFactory;
@@ -24,17 +24,17 @@
         {
             using (var transcodingStream = this.transcodingStreamFactory.CreateTrancodingStream(outputStream))
             {
-                return new SequenceValidationTranscoderAdapterStream(transcodingStream, previousEventHashReader);
+                return new SequenceValidationTranscodingStream(transcodingStream, previousEventHashReader);
             }
         }
 
-        internal class SequenceValidationTranscoderAdapterStream : Stream
+        internal class SequenceValidationTranscodingStream : Stream
         {
             private readonly Stream outputStream;
 
             private readonly int hashByteCount;
 
-            public SequenceValidationTranscoderAdapterStream(Stream outputStream, IPreviousEventHashReader previousEventHashReader)
+            public SequenceValidationTranscodingStream(Stream outputStream, IPreviousEventHashReader previousEventHashReader)
             {
                 var previousHash = previousEventHashReader.ReadPreviousHash();
                 var buffer = previousHash.GetBytes();
@@ -50,7 +50,6 @@
 
             public override long Seek(long offset, SeekOrigin origin)
             {
-                // TODO: Add validation to stop seeking back into hash.
                 switch (origin)
                 {
                     case SeekOrigin.Begin:
