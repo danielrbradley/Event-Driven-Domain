@@ -7,7 +7,7 @@
     <ProjectGuid>{7E021F54-32A3-4E9B-8E41-0E733F8F302F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EventDrivenDomain.Tests</RootNamespace>
+    <RootNamespace>EventDrivenDomain.EventStore.Tests</RootNamespace>
     <AssemblyName>EventDrivenDomain.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
