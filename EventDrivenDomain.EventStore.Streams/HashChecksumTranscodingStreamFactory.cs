@@ -1,5 +1,6 @@
 ﻿namespace EventDrivenDomain.EventStore.Streams
 {
+    using System;
     using System.IO;
 
     public class HashChecksumTranscodingStreamFactory : ITranscodingStreamFactory
@@ -29,49 +30,71 @@
 
         internal class HashChecksumTranscodingStream : Stream
         {
-            private readonly Stream outputStream;
+            private readonly Stream innerStream;
 
             private readonly IStreamHashGenerator streamHashGenerator;
 
-            private readonly Stream internalStream;
+            private readonly MemoryStream bufferStream;
 
-            public HashChecksumTranscodingStream(Stream outputStream, IStreamHashGenerator streamHashGenerator)
+            public HashChecksumTranscodingStream(Stream innerStream, IStreamHashGenerator streamHashGenerator)
             {
-                this.outputStream = outputStream;
+                if (!innerStream.CanWrite || !innerStream.CanRead || !innerStream.CanSeek)
+                {
+                    throw new ArgumentException("Inner stream must be seekable, readable and writable", "innerStream");
+                }
+
+                this.innerStream = innerStream;
                 this.streamHashGenerator = streamHashGenerator;
-                this.internalStream = new MemoryStream();
+
+                this.bufferStream = new MemoryStream();
+                innerStream.Position = 0;
+                innerStream.CopyTo(this.bufferStream);
+
+                this.bufferStream.Position = innerStream.Position;
             }
 
             public override void Flush()
             {
-                this.internalStream.Flush();
+                var bufferStartPosition = this.bufferStream.Position;
+                this.bufferStream.Seek(0, SeekOrigin.Begin);
+
+                var hash = this.streamHashGenerator.GenerateHash(this.bufferStream);
+                var hashBuffer = hash.GetBytes();
+
+                this.bufferStream.Seek(0, SeekOrigin.Begin);
+                this.innerStream.Seek(0, SeekOrigin.Begin);
+                this.bufferStream.CopyTo(this.innerStream);
+
+                this.innerStream.Write(hashBuffer, 0, hashBuffer.Length);
+                this.bufferStream.Position = bufferStartPosition;
             }
 
             public override long Seek(long offset, SeekOrigin origin)
             {
-                return this.internalStream.Seek(offset, origin);
+                return this.bufferStream.Seek(offset, origin);
             }
 
             public override void SetLength(long value)
             {
-                this.internalStream.SetLength(value);
+                this.innerStream.SetLength(value + this.streamHashGenerator.GetHashSize());
+                this.bufferStream.SetLength(value);
             }
 
             public override int Read(byte[] buffer, int offset, int count)
             {
-                return this.internalStream.Read(buffer, offset, count);
+                return this.bufferStream.Read(buffer, offset, count);
             }
 
             public override void Write(byte[] buffer, int offset, int count)
             {
-                this.internalStream.Write(buffer, offset, count);
+                this.bufferStream.Write(buffer, offset, count);
             }
 
             public override bool CanRead
             {
                 get
                 {
-                    return this.internalStream.CanRead;
+                    return this.innerStream.CanRead;
                 }
             }
 
@@ -79,7 +102,7 @@
             {
                 get
                 {
-                    return this.internalStream.CanSeek;
+                    return this.innerStream.CanSeek;
                 }
             }
 
@@ -87,7 +110,7 @@
             {
                 get
                 {
-                    return this.internalStream.CanWrite;
+                    return true;
                 }
             }
 
@@ -95,7 +118,7 @@
             {
                 get
                 {
-                    return this.internalStream.Length;
+                    return this.bufferStream.Length;
                 }
             }
 
@@ -103,25 +126,13 @@
             {
                 get
                 {
-                    return this.internalStream.Position;
+                    return this.bufferStream.Position;
                 }
 
                 set
                 {
-                    this.internalStream.Position = value;
+                    this.bufferStream.Position = value;
                 }
-            }
-
-            protected override void Dispose(bool disposing)
-            {
-                this.internalStream.Seek(0, SeekOrigin.Begin);
-                var hash = this.streamHashGenerator.GenerateHash(this.internalStream);
-                this.internalStream.Seek(0, SeekOrigin.Begin);
-                this.internalStream.CopyTo(this.outputStream);
-                var buffer = hash.GetBytes();
-                this.outputStream.Write(buffer, 0, buffer.Length);
-                this.internalStream.Dispose();
-                base.Dispose(disposing);
             }
         }
     }

@@ -28,5 +28,46 @@
                 Assert.AreEqual("Test", actual);
             }
         }
+
+        [Test]
+        public void Given_a_hash_checksum_transcoder_When_written_to_the_transcoder_Then_the_inner_stream_contains_the_written_data_followed_by_its_hash()
+        {
+            var hashAlgorithm = SHA256.Create();
+            var streamHashGenerator = new CryptoStreamHashGenerator(hashAlgorithm);
+            var hashChecksumTranscodingStreamFactory =
+                new HashChecksumTranscodingStreamFactory(streamHashGenerator);
+
+            const int HashByteCount = 32;
+            const string TestText = "Test";
+
+            using (var innerStream = new MemoryStream())
+            using (var hashCheckSumStream = hashChecksumTranscodingStreamFactory.CreateTrancodingStream(innerStream))
+            {
+                var writer = new StreamWriter(hashCheckSumStream);
+                writer.Write(TestText);
+                writer.Flush();
+                hashCheckSumStream.Flush();
+
+                innerStream.Position = 0;
+                var reader = new StreamReader(innerStream);
+                var stringBuffer = new char[4];
+                reader.ReadBlock(stringBuffer, 0, 4);
+
+                var expectedInnerStreamLength = TestText.Length + HashByteCount;
+                Assert.AreEqual(expectedInnerStreamLength, innerStream.Length);
+
+                const string ExpectedString = TestText;
+                var actualString = new string(stringBuffer);
+                Assert.AreEqual(ExpectedString, actualString);
+
+                const string ExpectedHash =
+                    "53-2E-AA-BD-95-74-88-0D-BF-76-B9-B8-CC-00-83-2C-20-A6-EC-11-3D-68-22-99-55-0D-7A-6E-0F-34-5E-25";
+                innerStream.Position = 4;
+                var hashBuffer = new byte[innerStream.Length - innerStream.Position];
+                innerStream.Read(hashBuffer, 0, HashByteCount);
+                var actualHash = BitConverter.ToString(hashBuffer);
+                Assert.AreEqual(ExpectedHash, actualHash);
+            }
+        }
     }
 }
