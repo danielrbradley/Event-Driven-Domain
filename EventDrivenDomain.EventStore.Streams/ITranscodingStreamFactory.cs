@@ -4,6 +4,6 @@
 
     public interface ITranscodingStreamFactory
     {
-        Stream CreateTrancodingStream(Stream outputStream);
+        Stream CreateTrancodingStream(Stream innerStream);
     }
 }

@@ -4,9 +4,9 @@
 
     public class PassThroughTranscodingStreamFactory : ITranscodingStreamFactory
     {
-        public Stream CreateTrancodingStream(Stream outputStream)
+        public Stream CreateTrancodingStream(Stream innerStream)
         {
-            return new PassThroughStream(outputStream);
+            return new PassThroughStream(innerStream);
         }
 
         public class PassThroughStream : MemoryStream

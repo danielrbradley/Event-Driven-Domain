@@ -20,9 +20,9 @@
             this.transcodingStreamFactory = transcodingStreamFactory;
         }
 
-        public Stream CreateTrancodingStream(Stream outputStream)
+        public Stream CreateTrancodingStream(Stream innerStream)
         {
-            using (var transcodingStream = this.transcodingStreamFactory.CreateTrancodingStream(outputStream))
+            using (var transcodingStream = this.transcodingStreamFactory.CreateTrancodingStream(innerStream))
             {
                 return new SequenceValidationTranscodingStream(transcodingStream, previousEventHashReader);
             }

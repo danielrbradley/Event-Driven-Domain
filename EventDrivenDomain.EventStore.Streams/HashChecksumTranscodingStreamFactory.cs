@@ -19,9 +19,9 @@
             this.transcodingStreamFactory = transcodingStreamFactory;
         }
 
-        public Stream CreateTrancodingStream(Stream outputStream)
+        public Stream CreateTrancodingStream(Stream innerStream)
         {
-            using (var innerTranscodingStream = this.transcodingStreamFactory.CreateTrancodingStream(outputStream))
+            using (var innerTranscodingStream = this.transcodingStreamFactory.CreateTrancodingStream(innerStream))
             {
                 return new HashChecksumTranscodingStream(innerTranscodingStream, this.streamHashGenerator);
             }
