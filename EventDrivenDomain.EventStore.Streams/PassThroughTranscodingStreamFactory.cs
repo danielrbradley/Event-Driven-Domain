@@ -9,19 +9,83 @@
             return new PassThroughStream(innerStream);
         }
 
-        public class PassThroughStream : MemoryStream
+        internal class PassThroughStream : Stream
         {
-            private readonly Stream outputStream;
+            private readonly Stream innerStream;
 
-            public PassThroughStream(Stream outputStream)
+            public PassThroughStream(Stream innerStream)
             {
-                this.outputStream = outputStream;
+                this.innerStream = innerStream;
             }
 
-            protected override void Dispose(bool disposing)
+            public override void Flush()
             {
-                this.CopyTo(this.outputStream);
-                base.Dispose(disposing);
+                this.innerStream.Flush();
+            }
+
+            public override long Seek(long offset, SeekOrigin origin)
+            {
+                return this.innerStream.Seek(offset, origin);
+            }
+
+            public override void SetLength(long value)
+            {
+                this.innerStream.SetLength(value);
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                return this.innerStream.Read(buffer, offset, count);
+            }
+
+            public override void Write(byte[] buffer, int offset, int count)
+            {
+                this.innerStream.Write(buffer, offset, count);
+            }
+
+            public override bool CanRead
+            {
+                get
+                {
+                    return this.innerStream.CanRead;
+                }
+            }
+
+            public override bool CanSeek
+            {
+                get
+                {
+                    return this.innerStream.CanSeek;
+                }
+            }
+
+            public override bool CanWrite
+            {
+                get
+                {
+                    return this.innerStream.CanWrite;
+                }
+            }
+
+            public override long Length
+            {
+                get
+                {
+                    return this.innerStream.Length;
+                }
+            }
+
+            public override long Position
+            {
+                get
+                {
+                    return this.innerStream.Position;
+                }
+
+                set
+                {
+                    this.innerStream.Position = value;
+                }
             }
         }
     }
