@@ -24,7 +24,7 @@
                 hashChecksumTranscodingStream.Flush();
 
                 var previousEventStreamHashReader =
-                    new PreviousEventStreamHashReader(new PreviousEventStreamProvider(stream), 4);
+                    new PreviousEventStreamHashReader(new EventStreamProvider(stream), 4);
 
                 var previousHash = previousEventStreamHashReader.ReadPreviousHash();
                 Assert.AreEqual(hash, previousHash);

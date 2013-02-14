@@ -4,11 +4,11 @@
 
     public class PreviousEventStreamHashReader : IPreviousEventHashReader
     {
-        private readonly IPreviousEventStreamProvider previousEventStreamProvider;
+        private readonly IEventStreamProvider previousEventStreamProvider;
 
         private readonly int hashByteCount;
 
-        public PreviousEventStreamHashReader(IPreviousEventStreamProvider previousEventStreamProvider, int hashByteCount)
+        public PreviousEventStreamHashReader(IEventStreamProvider previousEventStreamProvider, int hashByteCount)
         {
             this.previousEventStreamProvider = previousEventStreamProvider;
             this.hashByteCount = hashByteCount;

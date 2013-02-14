@@ -44,7 +44,7 @@
     <Compile Include="HashChecksumTranscodingStreamFactory.cs" />
     <Compile Include="IEventDecoder.cs" />
     <Compile Include="IHashedStreamReader.cs" />
-    <Compile Include="IPreviousEventStreamProvider.cs" />
+    <Compile Include="IEventStreamProvider.cs" />
     <Compile Include="ISequenceValidatableEventStreamReader.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="IStreamEventWriter.cs" />

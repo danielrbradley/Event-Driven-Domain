@@ -2,7 +2,7 @@
 {
     using System.IO;
 
-    public interface IPreviousEventStreamProvider
+    public interface IEventStreamProvider
     {
         Stream GetPreviousEventStream();
     }

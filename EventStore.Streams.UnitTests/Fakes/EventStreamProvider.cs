@@ -2,11 +2,11 @@ namespace EventDrivenDomain.EventStore.Streams.UnitTests.Fakes
 {
     using System.IO;
 
-    public class PreviousEventStreamProvider : IPreviousEventStreamProvider
+    public class EventStreamProvider : IEventStreamProvider
     {
         private readonly Stream stream;
 
-        public PreviousEventStreamProvider(Stream stream)
+        public EventStreamProvider(Stream stream)
         {
             this.stream = stream;
         }
