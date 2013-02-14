@@ -41,12 +41,12 @@
             const string TestText = "Test";
 
             using (var innerStream = new MemoryStream())
-            using (var hashCheckSumStream = hashChecksumTranscodingStreamFactory.CreateTrancodingStream(innerStream))
+            using (var hashChecksumTranscodingStream = hashChecksumTranscodingStreamFactory.CreateTrancodingStream(innerStream))
             {
-                var writer = new StreamWriter(hashCheckSumStream);
+                var writer = new StreamWriter(hashChecksumTranscodingStream);
                 writer.Write(TestText);
                 writer.Flush();
-                hashCheckSumStream.Flush();
+                hashChecksumTranscodingStream.Flush();
 
                 innerStream.Position = 0;
                 var reader = new StreamReader(innerStream);
