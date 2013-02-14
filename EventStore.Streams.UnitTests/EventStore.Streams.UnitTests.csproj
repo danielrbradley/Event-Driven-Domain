@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fakes\PreviousEventHashReader.cs" />
+    <Compile Include="Fakes\PreviousEventStreamProvider.cs" />
+    <Compile Include="Fakes\StreamHashGenerator.cs" />
+    <Compile Include="PreviousEventStreamHashReaderTests.cs" />
     <Compile Include="TranscodingStreamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
