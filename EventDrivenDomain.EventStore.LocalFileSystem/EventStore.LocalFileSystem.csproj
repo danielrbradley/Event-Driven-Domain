@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryPreviousEventStreamProvider.cs" />
     <Compile Include="SequenceValidatableEventFileReader.cs" />
     <Compile Include="EventFileWriter.cs" />
     <Compile Include="DirectorySequenceValidatableEventEnumerable.cs" />
