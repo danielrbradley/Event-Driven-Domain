@@ -23,9 +23,11 @@ The EventStoreBackedAggregateRoot class is designed to encapsulate the complexit
               /                 \
     *ProtobufStreamEncoder SequenceValidationTranscoderAdapter
                                      |                        \
-                      HashChecksumTranscodingStream  *PreviousEventHashReader
-                                     |
-                         CryptoStreamHashGenerator
+                      HashChecksumTranscodingStream    CryptoStreamPreviousEventHashReader
+                                                   \  /                    |
+                                       CryptoStreamHashGenerator   *DirectoryPreviousEventStreamProvider   
+                                                   |
+                                                 SHA256
 
 ### Enumerable Implementations
 

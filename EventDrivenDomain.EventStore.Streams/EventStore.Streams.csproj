@@ -39,10 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptoPreviousEventStreamHashReader.cs" />
     <Compile Include="CryptoStreamHashGenerator.cs" />
     <Compile Include="HashChecksumTranscodingStreamFactory.cs" />
     <Compile Include="IEventDecoder.cs" />
     <Compile Include="IHashedStreamReader.cs" />
+    <Compile Include="IPreviousEventStreamProvider.cs" />
     <Compile Include="ISequenceValidatableEventStreamReader.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="IStreamEventWriter.cs" />
