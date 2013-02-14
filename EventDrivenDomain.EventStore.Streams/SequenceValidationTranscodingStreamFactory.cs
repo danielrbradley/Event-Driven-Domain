@@ -30,22 +30,22 @@
 
         internal class SequenceValidationTranscodingStream : Stream
         {
-            private readonly Stream outputStream;
+            private readonly Stream innerStream;
 
             private readonly int hashByteCount;
 
-            public SequenceValidationTranscodingStream(Stream outputStream, IPreviousEventHashReader previousEventHashReader)
+            public SequenceValidationTranscodingStream(Stream innerStream, IPreviousEventHashReader previousEventHashReader)
             {
                 var previousHash = previousEventHashReader.ReadPreviousHash();
                 var buffer = previousHash.GetBytes();
                 this.hashByteCount = buffer.Length;
-                outputStream.Write(buffer, 0, this.hashByteCount);
-                this.outputStream = outputStream;
+                innerStream.Write(buffer, 0, this.hashByteCount);
+                this.innerStream = innerStream;
             }
 
             public override void Flush()
             {
-                this.outputStream.Flush();
+                this.innerStream.Flush();
             }
 
             public override long Seek(long offset, SeekOrigin origin)
@@ -53,7 +53,7 @@
                 switch (origin)
                 {
                     case SeekOrigin.Begin:
-                        return this.outputStream.Seek(offset + this.hashByteCount, origin) - this.hashByteCount;
+                        return this.innerStream.Seek(offset + this.hashByteCount, origin) - this.hashByteCount;
 
                     case SeekOrigin.Current:
                         if (this.Position - offset < 0)
@@ -62,7 +62,7 @@
                                 "offset", "Cannot seek to before the start of the stream.");
                         }
 
-                        return this.outputStream.Seek(offset, origin);
+                        return this.innerStream.Seek(offset, origin);
 
                     case SeekOrigin.End:
                         if (this.Length - offset < 0)
@@ -71,7 +71,7 @@
                                 "offset", "Cannot seek to before the start of the stream.");
                         }
 
-                        return this.outputStream.Seek(offset, origin);
+                        return this.innerStream.Seek(offset, origin);
 
                     default:
                         throw new ArgumentOutOfRangeException("origin", "Invalid seek orgin");
@@ -80,24 +80,24 @@
 
             public override void SetLength(long value)
             {
-                this.outputStream.SetLength(value + this.hashByteCount);
+                this.innerStream.SetLength(value);
             }
 
             public override int Read(byte[] buffer, int offset, int count)
             {
-                return this.outputStream.Read(buffer, offset + this.hashByteCount, count);
+                return this.innerStream.Read(buffer, offset, count);
             }
 
             public override void Write(byte[] buffer, int offset, int count)
             {
-                this.outputStream.Write(buffer, offset + this.hashByteCount, count);
+                this.innerStream.Write(buffer, offset, count);
             }
 
             public override bool CanRead
             {
                 get
                 {
-                    return this.outputStream.CanRead;
+                    return this.innerStream.CanRead;
                 }
             }
 
@@ -105,7 +105,7 @@
             {
                 get
                 {
-                    return this.outputStream.CanSeek;
+                    return this.innerStream.CanSeek;
                 }
             }
 
@@ -113,7 +113,7 @@
             {
                 get
                 {
-                    return this.outputStream.CanWrite;
+                    return this.innerStream.CanWrite;
                 }
             }
 
@@ -121,7 +121,7 @@
             {
                 get
                 {
-                    return this.outputStream.Length - this.hashByteCount;
+                    return this.innerStream.Length - this.hashByteCount;
                 }
             }
 
@@ -129,12 +129,12 @@
             {
                 get
                 {
-                    return this.outputStream.Position - this.hashByteCount;
+                    return this.innerStream.Position - this.hashByteCount;
                 }
 
                 set
                 {
-                    this.outputStream.Position = value + this.hashByteCount;
+                    this.innerStream.Position = value + this.hashByteCount;
                 }
             }
         }

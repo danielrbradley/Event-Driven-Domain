@@ -5,6 +5,7 @@
     using System.Security.Cryptography;
 
     using EventDrivenDomain.EventStore.Streams;
+    using EventDrivenDomain.EventStore.Streams.UnitTests.Fakes;
 
     using NUnit.Framework;
 
@@ -67,6 +68,37 @@
                 innerStream.Read(hashBuffer, 0, HashByteCount);
                 var actualHash = BitConverter.ToString(hashBuffer);
                 Assert.AreEqual(ExpectedHash, actualHash);
+            }
+        }
+
+        [Test]
+        public void
+            Given_a_sequence_validation_transcoder_When_writen_to_the_transcoding_stream_Then_the_inner_stream_contains_the_previous_identifier_followed_by_the_data_written()
+        {
+            byte[] hashBytes = { 1, 2, 3, 4 };
+            const string TestText = "Test";
+
+            var hash = new Hash(hashBytes);
+            var previousEventHashReader = new PreviousEventHashReader(hash);
+            var sequenceValidationTranscodingStreamFactory = new SequenceValidationTranscodingStreamFactory(previousEventHashReader);
+
+            using (var innerStream = new MemoryStream())
+            using (var sequenceValidationTranscodingStream = sequenceValidationTranscodingStreamFactory.CreateTrancodingStream(innerStream))
+            {
+                var writer = new StreamWriter(sequenceValidationTranscodingStream);
+                writer.Write(TestText);
+                writer.Flush();
+                sequenceValidationTranscodingStream.Flush();
+
+                innerStream.Seek(0, SeekOrigin.Begin);
+
+                var hashBuffer = new byte[4];
+                innerStream.Read(hashBuffer, 0, 4);
+                var reader = new StreamReader(innerStream);
+                var actualText = reader.ReadToEnd();
+
+                CollectionAssert.AreEqual(hashBytes, hashBuffer);
+                Assert.AreEqual(TestText, actualText);
             }
         }
     }

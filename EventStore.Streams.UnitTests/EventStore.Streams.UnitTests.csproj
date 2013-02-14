@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fakes\PreviousEventHashReader.cs" />
     <Compile Include="TranscodingStreamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\EventDrivenDomain.EventStore.Streams\EventStore.Streams.csproj">
       <Project>{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}</Project>
       <Name>EventStore.Streams</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore\EventStore.csproj">
+      <Project>{934e1eac-aeea-478e-bd6d-f7101c5994c8}</Project>
+      <Name>EventStore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
