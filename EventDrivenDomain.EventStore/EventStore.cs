@@ -10,10 +10,10 @@
 
         private readonly IEnumerable<Event<TBaseCommand>> events;
 
-        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreStoreWriter, IEnumerable<Event<TBaseCommand>> events)
+        public EventStore(ITimestampProvider timestampProvider, IEventStoreWriter<TBaseCommand> eventStoreWriter, IEnumerable<Event<TBaseCommand>> events)
         {
             this.timestampProvider = timestampProvider;
-            this.eventStoreWriter = eventStoreStoreWriter;
+            this.eventStoreWriter = eventStoreWriter;
             this.events = events;
         }
 
