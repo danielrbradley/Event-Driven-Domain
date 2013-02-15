@@ -54,6 +54,7 @@
     <Compile Include="CommandExecutionException.cs" />
     <Compile Include="ConcurrentBlockingQueue.cs" />
     <Compile Include="EventStoreCorruptionException.cs" />
+    <Compile Include="WriteLockAcquisitionException.cs" />
     <Compile Include="SequenceValidatableEvent.cs" />
     <Compile Include="Hash.cs" />
     <Compile Include="EventStoreBackedAggregateRoot.cs" />
