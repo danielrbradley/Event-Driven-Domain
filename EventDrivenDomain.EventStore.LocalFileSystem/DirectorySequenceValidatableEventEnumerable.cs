@@ -29,7 +29,12 @@
                     Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly)
                              .AsParallel()
                              .OrderBy(file => file)
-                             .Select(file => this.sequenceValidatableEventFileReader.Read(Path.Combine(folderPath, file)));
+                             .Select(file =>
+                                 {
+                                     var filename = Path.GetFileName(file);
+                                     var filePath = Path.Combine(folderPath, filename);
+                                     return this.sequenceValidatableEventFileReader.Read(filePath);
+                                 });
             }
         }
 
