@@ -8,6 +8,11 @@
     {
         private readonly RuntimeTypeModel model;
 
+        public ProtoBufSerializer()
+        {
+            this.model = RuntimeTypeModel.Default;
+        }
+
         public ProtoBufSerializer(RuntimeTypeModel model)
         {
             this.model = model;

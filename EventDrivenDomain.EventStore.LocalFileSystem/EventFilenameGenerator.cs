@@ -6,7 +6,11 @@
 
         private readonly string fileExtension;
 
-        public EventFilenameGenerator(string timestampFormatString, string fileExtension)
+        public const string DefaultTimestampFormatString = "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'-'fffffff";
+
+        public const string DefaultFileExtension = "evt";
+
+        public EventFilenameGenerator(string timestampFormatString = DefaultTimestampFormatString, string fileExtension = DefaultFileExtension)
         {
             this.timestampFormatString = timestampFormatString;
             this.fileExtension = fileExtension;

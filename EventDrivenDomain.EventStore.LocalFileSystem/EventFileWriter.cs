@@ -10,7 +10,9 @@
 
         private readonly int bufferSize;
 
-        public EventFileWriter(IStreamEventWriter<TBaseCommand> streamEventWriter, int bufferSize)
+        public const int DefaultBufferSize = 4096;
+
+        public EventFileWriter(IStreamEventWriter<TBaseCommand> streamEventWriter, int bufferSize = DefaultBufferSize)
         {
             this.streamEventWriter = streamEventWriter;
             this.bufferSize = bufferSize;

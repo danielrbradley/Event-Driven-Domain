@@ -14,6 +14,12 @@
             this.commandExecuted = commandExecuted.Command;
         }
 
+        public Event(TBaseCommand commandExecuted, DateTime timestamp)
+        {
+            this.timestamp = timestamp;
+            this.commandExecuted = commandExecuted;
+        }
+
         public DateTime Timestamp
         {
             get
