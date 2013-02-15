@@ -20,14 +20,18 @@
         public Stream GetPreviousEventStream()
         {
             var searchPattern = string.Concat("*.", this.fileExtension);
-            var eventFilenames = Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly);
+            var eventFilePaths = Directory.EnumerateFiles(this.folderPath, searchPattern, SearchOption.TopDirectoryOnly);
             // ReSharper disable PossibleMultipleEnumeration
-            if (eventFilenames.Any())
+            if (eventFilePaths.Any())
             {
-                var lastFilename = eventFilenames.OrderBy(filename => filename).Last();
+                var previousFilePath = eventFilePaths.OrderBy(filePath => filePath).Last();
                 // ReSharper restore PossibleMultipleEnumeration
-                var lastFilePath = Path.Combine(this.folderPath, lastFilename);
-                return File.OpenRead(lastFilePath);
+                var previousFilename = Path.GetFileName(previousFilePath);
+                if (previousFilename != null)
+                {
+                    var lastFilePath = Path.Combine(this.folderPath, previousFilename);
+                    return File.OpenRead(lastFilePath);
+                }
             }
 
             return null;
