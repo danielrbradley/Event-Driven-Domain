@@ -18,6 +18,11 @@
         {
             using (var stream = previousEventStreamProvider.GetPreviousEventStream())
             {
+                if (stream == null)
+                {
+                    return Hash.None;
+                }
+
                 var hashBuffer = new byte[this.hashByteCount];
                 stream.Seek(stream.Length - this.hashByteCount, SeekOrigin.Begin);
                 stream.Read(hashBuffer, 0, this.hashByteCount);

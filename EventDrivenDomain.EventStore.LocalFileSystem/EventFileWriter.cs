@@ -24,12 +24,13 @@
                 var filestream = new FileStream(
                     filePath,
                     FileMode.CreateNew,
-                    FileAccess.Read,
-                    FileShare.Read,
+                    FileAccess.ReadWrite,
+                    FileShare.None,
                     bufferSize,
-                    FileOptions.SequentialScan))
+                    FileOptions.None))
             {
                 this.streamEventWriter.Write(filestream, eventToWrite);
+                filestream.Flush();
             }
         }
     }

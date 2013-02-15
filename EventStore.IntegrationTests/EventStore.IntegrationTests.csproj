@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B023DD8-F341-44EF-9AC1-CD72517A3802}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EventDrivenDomain.EventStore.IntegrationTests</RootNamespace>
+    <AssemblyName>EventStore.IntegrationTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.621, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Protobuf_LocalFileSystem_Stream_AggregateRoot_Tests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\IUserCommand.cs" />
+    <Compile Include="Users\UpdateName.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserAggregate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore.LocalFileSystem\EventStore.LocalFileSystem.csproj">
+      <Project>{F448BDF8-56AF-4E64-A4F9-A6DE8E42728A}</Project>
+      <Name>EventStore.LocalFileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore.Streams.protobuf-net\EventDrivenDomain.EventStore.Streams.protobuf-net.csproj">
+      <Project>{ab4ff3d8-99f5-4329-a52a-973dc703a22e}</Project>
+      <Name>EventDrivenDomain.EventStore.Streams.protobuf-net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore.Streams\EventStore.Streams.csproj">
+      <Project>{27406CFC-E0B5-4EB8-8FCD-3BDF4EE3A245}</Project>
+      <Name>EventStore.Streams</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventDrivenDomain.EventStore\EventStore.csproj">
+      <Project>{934E1EAC-AEEA-478E-BD6D-F7101C5994C8}</Project>
+      <Name>EventStore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

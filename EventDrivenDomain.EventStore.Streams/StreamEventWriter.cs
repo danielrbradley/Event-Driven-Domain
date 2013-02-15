@@ -25,6 +25,7 @@
             using (var streamTrancodeAdapter = this.transcodingStreamFactory.CreateTrancodingStream(stream))
             {
                 this.serializer.SerializeToStream(streamTrancodeAdapter, eventToWrite);
+                streamTrancodeAdapter.Flush();
             }
         }
     }

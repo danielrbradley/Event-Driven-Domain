@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDrivenDomain.EventStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Streams.UnitTests", "EventStore.Streams.UnitTests\EventStore.Streams.UnitTests.csproj", "{13A80A91-A0C6-4837-9FF7-4E1C27A395D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.IntegrationTests", "EventStore.IntegrationTests\EventStore.IntegrationTests.csproj", "{7B023DD8-F341-44EF-9AC1-CD72517A3802}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{13A80A91-A0C6-4837-9FF7-4E1C27A395D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A80A91-A0C6-4837-9FF7-4E1C27A395D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13A80A91-A0C6-4837-9FF7-4E1C27A395D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B023DD8-F341-44EF-9AC1-CD72517A3802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B023DD8-F341-44EF-9AC1-CD72517A3802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B023DD8-F341-44EF-9AC1-CD72517A3802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B023DD8-F341-44EF-9AC1-CD72517A3802}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
