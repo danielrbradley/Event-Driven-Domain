@@ -24,10 +24,13 @@
         {
             var filename = this.filePathProvider.CreateFilename(eventToWrite);
             var filePath = Path.Combine(this.path, filename);
+            var tempFilePath = string.Concat(filePath, ".temp");
             using (writeLock.WaitAquire())
             {
-                this.eventFileWriter.Write(filePath, eventToWrite);
+                this.eventFileWriter.Write(tempFilePath, eventToWrite);
             }
+
+            File.Move(tempFilePath, filePath);
         }
     }
 }
