@@ -71,6 +71,7 @@
     <Compile Include="MessageState.cs" />
     <Compile Include="MessageStateMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemClockUtcTimestampProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
