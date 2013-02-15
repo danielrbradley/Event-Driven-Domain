@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandExecutionException.cs" />
     <Compile Include="ConcurrentBlockingQueue.cs" />
     <Compile Include="EventStoreCorruptionException.cs" />
     <Compile Include="SequenceValidatableEvent.cs" />

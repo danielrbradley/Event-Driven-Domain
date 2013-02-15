@@ -48,7 +48,7 @@
 
             if (error != null)
             {
-                throw error;
+                throw new CommandExecutionException("Failed executing command", error);
             }
         }
 
